@@ -1,0 +1,8 @@
+Empire
+Kingdom
+Dominion
+Dynasty
+Realm
+Division
+Territory
+Nation
