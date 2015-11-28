@@ -7,6 +7,10 @@ public class Matrix4f {
 	public static final int SIZE = 4 * 4;
 	/** [column + line * 4] */
 	public float[] elements = new float[SIZE];
+	private static int m00 = 0, m10 = 1, m20 = 2, m30 = 3;
+	private static int m01 = 4, m11 = 5, m21 = 6, m31 = 7;
+	private static int m02 = 8, m12 = 9, m22 = 10, m32 = 11;
+	private static int m03 = 12, m13 = 13, m23 = 14, m33 = 15;
 
 	public Matrix4f() {
 
@@ -39,13 +43,14 @@ public class Matrix4f {
 
 		fov = (float) Math.toRadians(fov);
 
-		float f = (float) (1.0f / Math.tan(fov));
-
+		float ys = (float) ((1f / Math.tan(fov/2f)) * aspect);
+		float xs = ys / aspect;
+		
 		float frustrum_length = near - far;
 
-		this.elements[0 + 0 * 4] = f / aspect;
+		this.elements[0 + 0 * 4] = xs;
 
-		this.elements[1 + 1 * 4] = f;
+		this.elements[1 + 1 * 4] = ys;
 
 		this.elements[2 + 2 * 4] = ((far + near) / frustrum_length);
 
@@ -119,84 +124,82 @@ public class Matrix4f {
 
 		if (determinant != 0) {
 			/*
-			 * elements[0] elements[1] elements[2] elements[3]
-			 * elements[0+1*4] elements[1+1*4] elements[2+1*4] elements[3+1*4]
-			 * elements[0+2*4] elements[1+2*4] elements[2+2*4] elements[3+2*4]
-			 * elements[0+3*4] elements[1+3*4] elements[2+3*4] elements[3+3*4]
+			 * m00 m01 m02 m03 m10 m11 m12 m13 m20 m21 m22 m23 m30 m31 m32 m33
 			 */
 			if (dest == null)
 				dest = new Matrix4f();
 			float determinant_inv = 1f / determinant;
 
 			// first row
-			float t00 = determinant3x3(src.elements[1 + 1 * 4], src.elements[2 + 1 * 4], src.elements[3 + 1 * 4], src.elements[1 + 2 * 4], src.elements[2 + 2 * 4], src.elements[3 + 2 * 4], src.elements[1 + 3 * 4], src.elements[2 + 3 * 4], src.elements[3 + 3 * 4]);
-			float t01 = -determinant3x3(src.elements[0 + 1 * 4], src.elements[2 + 1 * 4], src.elements[3 + 1 * 4], src.elements[0 + 2 * 4], src.elements[2 + 2 * 4], src.elements[3 + 2 * 4], src.elements[0 + 3 * 4], src.elements[2 + 3 * 4], src.elements[3 + 3 * 4]);
-			float t02 = determinant3x3(src.elements[0 + 1 * 4], src.elements[1 + 1 * 4], src.elements[3 + 1 * 4], src.elements[0 + 2 * 4], src.elements[1 + 2 * 4], src.elements[3 + 2 * 4], src.elements[0 + 3 * 4], src.elements[1 + 3 * 4], src.elements[3 + 3 * 4]);
-			float t03 = -determinant3x3(src.elements[0 + 1 * 4], src.elements[1 + 1 * 4], src.elements[2 + 1 * 4], src.elements[0 + 2 * 4], src.elements[1 + 2 * 4], src.elements[2 + 2 * 4], src.elements[0 + 3 * 4], src.elements[1 + 3 * 4], src.elements[2 + 3 * 4]);
+			float t00 = determinant3x3(src.elements[m11], src.elements[m12], src.elements[m13], src.elements[m21], src.elements[m22], src.elements[m23], src.elements[m31], src.elements[m32], src.elements[m33]);
+			float t01 = -determinant3x3(src.elements[m10], src.elements[m12], src.elements[m13], src.elements[m20], src.elements[m22], src.elements[m23], src.elements[m30], src.elements[m32], src.elements[m33]);
+			float t02 = determinant3x3(src.elements[m10], src.elements[m11], src.elements[m13], src.elements[m20], src.elements[m21], src.elements[m23], src.elements[m30], src.elements[m31], src.elements[m33]);
+			float t03 = -determinant3x3(src.elements[m10], src.elements[m11], src.elements[m12], src.elements[m20], src.elements[m21], src.elements[m22], src.elements[m30], src.elements[m31], src.elements[m32]);
 			// second row
-			float t10 = -determinant3x3(src.elements[1], src.elements[2], src.elements[3], src.elements[1 + 2 * 4], src.elements[2 + 2 * 4], src.elements[3 + 2 * 4], src.elements[1 + 3 * 4], src.elements[2 + 3 * 4], src.elements[3 + 3 * 4]);
-			float t11 = determinant3x3(src.elements[0], src.elements[2], src.elements[3], src.elements[0 + 2 * 4], src.elements[2 + 2 * 4], src.elements[3 + 2 * 4], src.elements[0 + 3 * 4], src.elements[2 + 3 * 4], src.elements[3 + 3 * 4]);
-			float t12 = -determinant3x3(src.elements[0], src.elements[1], src.elements[3], src.elements[0 + 2 * 4], src.elements[1 + 2 * 4], src.elements[3 + 2 * 4], src.elements[0 + 3 * 4], src.elements[1 + 3 * 4], src.elements[3 + 3 * 4]);
-			float t13 = determinant3x3(src.elements[0], src.elements[1], src.elements[2], src.elements[0 + 2 * 4], src.elements[1 + 2 * 4], src.elements[2 + 2 * 4], src.elements[0 + 3 * 4], src.elements[1 + 3 * 4], src.elements[2 + 3 * 4]);
+			float t10 = -determinant3x3(src.elements[m01], src.elements[m02], src.elements[m03], src.elements[m21], src.elements[m22], src.elements[m23], src.elements[m31], src.elements[m32], src.elements[m33]);
+			float t11 = determinant3x3(src.elements[m00], src.elements[m02], src.elements[m03], src.elements[m20], src.elements[m22], src.elements[m23], src.elements[m30], src.elements[m32], src.elements[m33]);
+			float t12 = -determinant3x3(src.elements[m00], src.elements[m01], src.elements[m03], src.elements[m20], src.elements[m21], src.elements[m23], src.elements[m30], src.elements[m31], src.elements[m33]);
+			float t13 = determinant3x3(src.elements[m00], src.elements[m01], src.elements[m02], src.elements[m20], src.elements[m21], src.elements[m22], src.elements[m30], src.elements[m31], src.elements[m32]);
 			// third row
-			float t20 = determinant3x3(src.elements[1], src.elements[2], src.elements[3], src.elements[1 + 1 * 4], src.elements[2 + 1 * 4], src.elements[3 + 1 * 4], src.elements[1 + 3 * 4], src.elements[2 + 3 * 4], src.elements[3 + 3 * 4]);
-			float t21 = -determinant3x3(src.elements[0], src.elements[2], src.elements[3], src.elements[0 + 1 * 4], src.elements[2 + 1 * 4], src.elements[3 + 1 * 4], src.elements[0 + 3 * 4], src.elements[2 + 3 * 4], src.elements[3 + 3 * 4]);
-			float t22 = determinant3x3(src.elements[0], src.elements[1], src.elements[3], src.elements[0 + 1 * 4], src.elements[1 + 1 * 4], src.elements[3 + 1 * 4], src.elements[0 + 3 * 4], src.elements[1 + 3 * 4], src.elements[3 + 3 * 4]);
-			float t23 = -determinant3x3(src.elements[0], src.elements[1], src.elements[2], src.elements[0 + 1 * 4], src.elements[1 + 1 * 4], src.elements[2 + 1 * 4], src.elements[0 + 3 * 4], src.elements[1 + 3 * 4], src.elements[2 + 3 * 4]);
+			float t20 = determinant3x3(src.elements[m01], src.elements[m02], src.elements[m03], src.elements[m11], src.elements[m12], src.elements[m13], src.elements[m31], src.elements[m32], src.elements[m33]);
+			float t21 = -determinant3x3(src.elements[m00], src.elements[m02], src.elements[m03], src.elements[m10], src.elements[m12], src.elements[m13], src.elements[m30], src.elements[m32], src.elements[m33]);
+			float t22 = determinant3x3(src.elements[m00], src.elements[m01], src.elements[m03], src.elements[m10], src.elements[m11], src.elements[m13], src.elements[m30], src.elements[m31], src.elements[m33]);
+			float t23 = -determinant3x3(src.elements[m00], src.elements[m01], src.elements[m02], src.elements[m10], src.elements[m11], src.elements[m12], src.elements[m30], src.elements[m31], src.elements[m32]);
 			// fourth row
-			float t30 = -determinant3x3(src.elements[1], src.elements[2], src.elements[3], src.elements[1 + 1 * 4], src.elements[2 + 1 * 4], src.elements[3 + 1 * 4], src.elements[1 + 2 * 4], src.elements[2 + 2 * 4], src.elements[3 + 2 * 4]);
-			float t31 = determinant3x3(src.elements[0], src.elements[2], src.elements[3], src.elements[0 + 1 * 4], src.elements[2 + 1 * 4], src.elements[3 + 1 * 4], src.elements[0 + 2 * 4], src.elements[2 + 2 * 4], src.elements[3 + 2 * 4]);
-			float t32 = -determinant3x3(src.elements[0], src.elements[1], src.elements[3], src.elements[0 + 1 * 4], src.elements[1 + 1 * 4], src.elements[3 + 1 * 4], src.elements[0 + 2 * 4], src.elements[1 + 2 * 4], src.elements[3 + 2 * 4]);
-			float t33 = determinant3x3(src.elements[0], src.elements[1], src.elements[2], src.elements[0 + 1 * 4], src.elements[1 + 1 * 4], src.elements[2 + 1 * 4], src.elements[0 + 2 * 4], src.elements[1 + 2 * 4], src.elements[2 + 2 * 4]);
+			float t30 = -determinant3x3(src.elements[m01], src.elements[m02], src.elements[m03], src.elements[m11], src.elements[m12], src.elements[m13], src.elements[m21], src.elements[m22], src.elements[m23]);
+			float t31 = determinant3x3(src.elements[m00], src.elements[m02], src.elements[m03], src.elements[m10], src.elements[m12], src.elements[m13], src.elements[m20], src.elements[m22], src.elements[m23]);
+			float t32 = -determinant3x3(src.elements[m00], src.elements[m01], src.elements[m03], src.elements[m10], src.elements[m11], src.elements[m13], src.elements[m20], src.elements[m21], src.elements[m23]);
+			float t33 = determinant3x3(src.elements[m00], src.elements[m01], src.elements[m02], src.elements[m10], src.elements[m11], src.elements[m12], src.elements[m20], src.elements[m21], src.elements[m22]);
 
 			// transpose and divide by the determinant
-			dest.elements[0] = t00 * determinant_inv;
-			dest.elements[1 + 1 * 4] = t11 * determinant_inv;
-			dest.elements[2 + 2 * 4] = t22 * determinant_inv;
-			dest.elements[3 + 3 * 4] = t33 * determinant_inv;
-			dest.elements[1] = t10 * determinant_inv;
-			dest.elements[0 + 1 * 4] = t01 * determinant_inv;
-			dest.elements[0 + 2 * 4] = t02 * determinant_inv;
-			dest.elements[2] = t20 * determinant_inv;
-			dest.elements[2 + 1 * 4] = t21 * determinant_inv;
-			dest.elements[1 + 2 * 4] = t12 * determinant_inv;
-			dest.elements[3] = t30 * determinant_inv;
-			dest.elements[0 + 3 * 4] = t03 * determinant_inv;
-			dest.elements[3 + 1 * 4] = t31 * determinant_inv;
-			dest.elements[1 + 3 * 4] = t13 * determinant_inv;
-			dest.elements[2 + 3 * 4] = t23 * determinant_inv;
-			dest.elements[3 + 2 * 4] = t32 * determinant_inv;
+			dest.elements[m00] = t00 * determinant_inv;
+			dest.elements[m11] = t11 * determinant_inv;
+			dest.elements[m22] = t22 * determinant_inv;
+			dest.elements[m33] = t33 * determinant_inv;
+			dest.elements[m01] = t10 * determinant_inv;
+			dest.elements[m10] = t01 * determinant_inv;
+			dest.elements[m20] = t02 * determinant_inv;
+			dest.elements[m02] = t20 * determinant_inv;
+			dest.elements[m12] = t21 * determinant_inv;
+			dest.elements[m21] = t12 * determinant_inv;
+			dest.elements[m03] = t30 * determinant_inv;
+			dest.elements[m30] = t03 * determinant_inv;
+			dest.elements[m13] = t31 * determinant_inv;
+			dest.elements[m31] = t13 * determinant_inv;
+			dest.elements[m32] = t23 * determinant_inv;
+			dest.elements[m23] = t32 * determinant_inv;
 			return dest;
 		} else
 			return null;
 	}
 
 	private static float determinant3x3(float t00, float t01, float t02, float t10, float t11, float t12, float t20, float t21, float t22) {
-		return t00 * (t11 * t22 - t12 * t21) + t01 * (t12 * t20 - t10 * t22) + t02 * (t10 * t21 - t11 * t20);
+		return t00 * (t11 * t22 - t12 * t21)
+				+ t01 * (t12 * t20 - t10 * t22)
+				+ t02 * (t10 * t21 - t11 * t20);
 	}
 
 	public float determinant() {
-		float f =
-				elements[0]
-						* ((elements[1 + 1 * 4] * elements[2 + 2 * 4] * elements[3 + 3 * 4] + elements[2 + 1 * 4] * elements[3 + 2 * 4] * elements[1 + 3 * 4] + elements[3 + 1 * 4] * elements[1 + 2 * 4] * elements[2 + 3 * 4])
-								- elements[3 + 1 * 4] * elements[2 + 2 * 4] * elements[1 + 3 * 4]
-								- elements[1 + 1 * 4] * elements[3 + 2 * 4] * elements[2 + 3 * 4]
-								- elements[2 + 1 * 4] * elements[1 + 2 * 4] * elements[3 + 3 * 4]);
-		f -= elements[1]
-				* ((elements[0 + 1 * 4] * elements[2 + 2 * 4] * elements[3 + 3 * 4] + elements[2 + 1 * 4] * elements[3 + 2 * 4] * elements[0 + 3 * 4] + elements[3 + 1 * 4] * elements[0 + 2 * 4] * elements[2 + 3 * 4])
-						- elements[3 + 1 * 4] * elements[2 + 2 * 4] * elements[0 + 3 * 4]
-						- elements[0 + 1 * 4] * elements[3 + 2 * 4] * elements[2 + 3 * 4]
-						- elements[2 + 1 * 4] * elements[0 + 2 * 4] * elements[3 + 3 * 4]);
-		f += elements[2]
-				* ((elements[0 + 1 * 4] * elements[1 + 2 * 4] * elements[3 + 3 * 4] + elements[1 + 1 * 4] * elements[3 + 2 * 4] * elements[0 + 3 * 4] + elements[3 + 1 * 4] * elements[0 + 2 * 4] * elements[1 + 3 * 4])
-						- elements[3 + 1 * 4] * elements[1 + 2 * 4] * elements[0 + 3 * 4]
-						- elements[0 + 1 * 4] * elements[3 + 2 * 4] * elements[1 + 3 * 4]
-						- elements[1 + 1 * 4] * elements[0 + 2 * 4] * elements[3 + 3 * 4]);
-		f -= elements[3]
-				* ((elements[0 + 1 * 4] * elements[1 + 2 * 4] * elements[2 + 3 * 4] + elements[1 + 1 * 4] * elements[2 + 2 * 4] * elements[0 + 3 * 4] + elements[2 + 1 * 4] * elements[0 + 2 * 4] * elements[1 + 3 * 4])
-						- elements[2 + 1 * 4] * elements[1 + 2 * 4] * elements[0 + 3 * 4]
-						- elements[0 + 1 * 4] * elements[2 + 2 * 4] * elements[1 + 3 * 4]
-						- elements[1 + 1 * 4] * elements[0 + 2 * 4] * elements[2 + 3 * 4]);
+		float f = elements[m00]
+				* ((elements[m11] * elements[m22] * elements[m33] + elements[m12] * elements[m23] * elements[m31] + elements[m13] * elements[m21] * elements[m32])
+						- elements[m13] * elements[m22] * elements[m31]
+						- elements[m11] * elements[m23] * elements[m32]
+						- elements[m12] * elements[m21] * elements[m33]);
+		f -= elements[m01]
+				* ((elements[m10] * elements[m22] * elements[m33] + elements[m12] * elements[m23] * elements[m30] + elements[m13] * elements[m20] * elements[m32])
+						- elements[m13] * elements[m22] * elements[m30]
+						- elements[m10] * elements[m23] * elements[m32]
+						- elements[m12] * elements[m20] * elements[m33]);
+		f += elements[m02]
+				* ((elements[m10] * elements[m21] * elements[m33] + elements[m11] * elements[m23] * elements[m30] + elements[m13] * elements[m20] * elements[m31])
+						- elements[m13] * elements[m21] * elements[m30]
+						- elements[m10] * elements[m23] * elements[m31]
+						- elements[m11] * elements[m20] * elements[m33]);
+		f -= elements[m03]
+				* ((elements[m10] * elements[m21] * elements[m32] + elements[m11] * elements[m22] * elements[m30] + elements[m12] * elements[m20] * elements[m31])
+						- elements[m12] * elements[m21] * elements[m30]
+						- elements[m10] * elements[m22] * elements[m31]
+						- elements[m11] * elements[m20] * elements[m32]);
 		return f;
 	}
 
@@ -204,10 +207,10 @@ public class Matrix4f {
 		if (dest == null)
 			dest = new Vector4f();
 
-		float x = left.elements[0] * right.x + left.elements[0+1*4] * right.y + left.elements[0+2*4] * right.z + left.elements[0+3*4] * right.w;
-		float y = left.elements[1+0*4] * right.x + left.elements[1+1*4] * right.y + left.elements[1+2*4] * right.z + left.elements[1+3*4] * right.w;
-		float z = left.elements[2+0*4] * right.x + left.elements[2+1*4] * right.y + left.elements[2+2*4] * right.z + left.elements[2+3*4] * right.w;
-		float w = left.elements[3+0*4] * right.x + left.elements[3+1*4] * right.y + left.elements[3+2*4] * right.z + left.elements[3+3*4] * right.w;
+		float x = left.elements[m00] * right.x + left.elements[m10] * right.y + left.elements[m20] * right.z + left.elements[m30] * right.w;
+		float y = left.elements[m01] * right.x + left.elements[m11] * right.y + left.elements[m21] * right.z + left.elements[m31] * right.w;
+		float z = left.elements[m02] * right.x + left.elements[m12] * right.y + left.elements[m22] * right.z + left.elements[m32] * right.w;
+		float w = left.elements[m03] * right.x + left.elements[m13] * right.y + left.elements[m23] * right.z + left.elements[m33] * right.w;
 
 		dest.x = x;
 		dest.y = y;
@@ -216,20 +219,15 @@ public class Matrix4f {
 
 		return dest;
 	}
-	
+
 	@Override
 	public String toString() {
-		String str = "";
-		int limit = -1;
-		for (float f : this.elements) {
-			limit++;
-			if (limit == 4) {
-				limit = 0;
-				System.out.println();
-			}
-			System.out.print("|" + f + "|");
-		}
-		return str;
+		StringBuilder buf = new StringBuilder();
+		buf.append(elements[m00]).append(' ').append(elements[m10]).append(' ').append(elements[m20]).append(' ').append(elements[m30]).append('\n');
+		buf.append(elements[m01]).append(' ').append(elements[m11]).append(' ').append(elements[m21]).append(' ').append(elements[m31]).append('\n');
+		buf.append(elements[m02]).append(' ').append(elements[m12]).append(' ').append(elements[m22]).append(' ').append(elements[m32]).append('\n');
+		buf.append(elements[m03]).append(' ').append(elements[m13]).append(' ').append(elements[m23]).append(' ').append(elements[m33]).append('\n');
+		return buf.toString();
 	}
 
 	public FloatBuffer toFloatBuffer() {

@@ -69,7 +69,8 @@ public class GalaxyRenderer {
 		shader.loadOnceUniforms();
 		for (int i = 0; i < galaxies.length;i++) {
 			shader.getMl_mat().Transform(galaxies[i].getPosition(), 0, nulVec, oneVec);
-			shader.loadUniforms();			
+			shader.loadUniforms();		
+			shader.setUniform(shader.getUniformLocation("color"), galaxies[i].getColor());
 			glDrawElements(GL_TRIANGLES, GalaxyModel_1.getVertexCount(), GL_UNSIGNED_INT, 0);
 		}
 		glDisableVertexAttribArray(0);

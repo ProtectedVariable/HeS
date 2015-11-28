@@ -59,8 +59,26 @@ public class MasterRenderer {
 	public void setLOD(LevelOfDetail lOD) {
 		LOD = lOD;
 	}
+	
+	public ProjectionMatrix getPerspective() {
+		return perspective;
+	}
+
+	public ProjectionMatrix getOthographic() {
+		return othographic;
+	}
 
 	public enum LevelOfDetail {
-		ULTRA, HIGH, MEDIUM, LOW, DEBUG
+		ULTRA(10), HIGH(5), MEDIUM(3), LOW(1), DEBUG(1);
+		
+		int exp;
+		
+		LevelOfDetail(int exp) {
+			this.exp = exp;
+		}
+		
+		public int getExposant() {
+			return exp;
+		}
 	}
 }

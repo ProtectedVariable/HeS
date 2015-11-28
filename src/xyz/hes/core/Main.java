@@ -6,6 +6,7 @@ import static org.lwjgl.system.MemoryUtil.*;
 
 import java.nio.*;
 
+import org.lwjgl.BufferUtils;
 import org.lwjgl.glfw.*;
 import org.lwjgl.opengl.*;
 
@@ -116,9 +117,15 @@ public class Main {
 		glfwSwapBuffers(window);
 	}
 
+	public static float mouseX, mouseY;
+	private DoubleBuffer mx = BufferUtils.createDoubleBuffer(1),my = BufferUtils.createDoubleBuffer(1);
+	
 	private void update() {
 		game.Update();
 		glfwPollEvents();
+		glfwGetCursorPos(window, mx, my);
+		mouseX = (float)mx.get(0);
+		mouseY = (float)my.get(0);
 	}
 
 	private void InitGL() {
@@ -143,7 +150,6 @@ public class Main {
 		glfwMakeContextCurrent(window);
 		glfwSwapInterval(0);
 		glfwShowWindow(window);
-
 	}
 
 	public static void main(String[] args) {

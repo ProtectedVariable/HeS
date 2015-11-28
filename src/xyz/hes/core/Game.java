@@ -1,9 +1,13 @@
 package xyz.hes.core;
 
+import static org.lwjgl.glfw.GLFW.*;
+
 import java.util.ArrayList;
 import java.util.List;
 
+import me.soldier.math.Vector3f;
 import me.soldier.util.FileReader;
+import me.soldier.util.MousePicker;
 import xyz.hes.enemy.Enemy;
 import xyz.hes.space.MasterRenderer;
 import xyz.hes.space.MasterRenderer.LevelOfDetail;
@@ -20,13 +24,14 @@ public class Game {
 	private Camera pov;
 	public static String LANG_PATH = "src/res/lang/en/";
 	private List<Enemy> enemies;
+	private MousePicker mousePicker;
 
 	public Game() {
 		this.renderer = new MasterRenderer();
 		this.renderer.setLOD(LevelOfDetail.DEBUG);
-		this.universe = new Universe(10);
+		this.universe = new Universe(this.renderer.getLOD().getExposant());
 		this.observed = this.universe;
-		this.pov = new Camera(0, 0, 10);
+		this.pov = new Camera(0, 0, 330);
 
 		this.enemies = new ArrayList<Enemy>();
 
@@ -40,12 +45,14 @@ public class Game {
 			System.out.println(name);
 			this.enemies.add(new Enemy(null, null, name));
 		}
+
+		mousePicker = new MousePicker(pov.vw_matrix, this.renderer.getPerspective());
 	}
 
 	public void Render() {
-		
+
 		pov.lookThrough();
-		
+
 		if (observed instanceof Universe) {
 			renderer.RenderUniverse(pov, (Universe) observed);
 		} else if (observed instanceof Galaxy) {
@@ -60,6 +67,31 @@ public class Game {
 	}
 
 	public void Update() {
-		pov.position.z += ScrollHandler.getdY();
+		mousePicker.Update(Main.mouseX, Main.mouseY);
+		if (observed instanceof Universe) {
+			if ((pov.position.z > -20 && ScrollHandler.getdY() < 0) || (pov.position.z < 330 && ScrollHandler.getdY() > 0)) {
+				pov.position.z += ScrollHandler.getdY();
+			}
+		}
+
+		for (int i = 0; i < universe.getGalaxies().length; i++) {
+			if (mousePicker.collideWithObj(universe.getGalaxies()[i].getPosition(), pov.position, 2))
+				universe.getGalaxies()[i].setColor(0, 0, 1);
+			else
+				universe.getGalaxies()[i].setColor(1, 1, 1);
+		}
+
+		if (Input.isKeyDown(GLFW_KEY_LEFT)) {
+			pov.position.x -= 1.2f;
+		}
+		if (Input.isKeyDown(GLFW_KEY_RIGHT)) {
+			pov.position.x += 1.2f;
+		}
+		if (Input.isKeyDown(GLFW_KEY_UP)) {
+			pov.position.y += 1.2f;
+		}
+		if (Input.isKeyDown(GLFW_KEY_DOWN)) {
+			pov.position.y -= 1.2f;
+		}
 	}
 }

@@ -40,5 +40,13 @@ public class Vector3f {
 	public static Vector3f Cross(Vector3f v1, Vector3f v2) {
 		return new Vector3f(v1.y*v2.z-(v2.y*v1.z), -(v1.x*v2.z-(v2.x*v1.z)), v1.x*v2.y-(v2.x-v1.y));
 	}
+	
+	public static float Dot(Vector3f v1, Vector3f v2) {
+		return (v1.x*v2.x)+(v1.y*v2.y)+(v1.z*v2.z);
+	}
 
+	@Override
+	public String toString() {
+		return "("+this.x+","+this.y+","+this.z+")";
+	}
 }
