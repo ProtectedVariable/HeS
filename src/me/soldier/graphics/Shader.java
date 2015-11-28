@@ -83,7 +83,7 @@ public abstract class Shader {
 
 	public void setUniform(int pLocation, Matrix4f matrix) {
 		start();
-		glUniformMatrix4(pLocation, false, matrix.toFloatBuffer());
+		glUniformMatrix4fv(pLocation, false, matrix.toFloatBuffer());
 	}
 	
 	public void cleanUp() {

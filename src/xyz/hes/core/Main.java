@@ -13,8 +13,8 @@ import org.lwjgl.opengl.*;
 public class Main {
 
 	// BASE
-	public static int width = 1600;
-	public static int height = 900;
+	public static int width = 800;
+	public static int height = 450;
 
 	public static boolean running = false;
 
@@ -54,8 +54,8 @@ public class Main {
 			glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 			glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 			glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+			System.setProperty("org.lwjgl.opengl.Display.enableOSXFullscreenModeAPI", "true");
 		}
-
 		window = glfwCreateWindow(width, height, "HeS", NULL, NULL);
 		if (window == NULL) {
 			System.err.println("Could not create GLFW window!");
@@ -129,20 +129,18 @@ public class Main {
 	}
 
 	private void InitGL() {
-		GLContext.createFromCurrent();
+		GL.createCapabilities();
 		System.out.println("OpenGL: " + glGetString(GL_VERSION));
-		glViewport(0, 0, width, height);
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		glEnable(GL13.GL_MULTISAMPLE);
+		glViewport(0, 0, width, height);
 	}
 
 	private void InitWindow() {
 
-		ByteBuffer vidmode = glfwGetVideoMode(glfwGetPrimaryMonitor());
-		glfwSetWindowPos(window, (GLFWvidmode.width(vidmode) - width) / 2 + 50,
-				(GLFWvidmode.height(vidmode) - height) / 2);
-
+		GLFWVidMode vidmode = glfwGetVideoMode(glfwGetPrimaryMonitor());
+		glfwSetWindowPos(window, (vidmode.width() - width) / 2, (vidmode.height() - height) / 2);
 		glfwSetKeyCallback(window, keyCallback = new Input());
 		glfwSetWindowSizeCallback(window, sizeCallback = new ResizeHandler());
 		glfwSetMouseButtonCallback(window, mouseCallback = new MouseHandler());

@@ -68,13 +68,13 @@ public class MousePicker {
 	 */
 	public boolean collideWithObj(Vector3f c, Vector3f o, float r) {
 		float delta = -1;
+		System.out.println(mouseX+" "+mouseY+" "+c);
 		Vector3f diff = Vector3f.Sub(c, o);
 		diff.y = -diff.y;
 		float b = Vector3f.Dot(currentRay, diff);
 		float lengthSquared = diff.length()*diff.length();
 		float radiusSquared = r * r;
 		delta = radiusSquared+(b*b)-lengthSquared;
-		System.out.println(delta);
 		return delta >= 0;
 	}
 }
