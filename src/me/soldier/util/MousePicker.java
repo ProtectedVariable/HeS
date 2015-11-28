@@ -25,8 +25,8 @@ public class MousePicker {
 
 	public void Update(float x, float y) {
 		currentRay = calculateMouseRay();
-		this.mouseX = 10;
-		this.mouseY = 10;
+		this.mouseX = x;
+		this.mouseY = y;
 	}
 
 	private Vector3f calculateMouseRay() {
@@ -56,7 +56,7 @@ public class MousePicker {
 	}
 
 	private Vector2f getNormalizedDeviceCoords(float x, float y) {
-		return new Vector2f((2 * x) / Main.width - 1, ((2 * y) / Main.height - 1));
+		return new Vector2f((2f * x) / Main.width - 1f, ((2f * y) / Main.height - 1f));
 	}
 
 	/**
@@ -69,9 +69,8 @@ public class MousePicker {
 	public boolean collideWithObj(Vector3f c, Vector3f o, float r) {
 		float delta = -1;
 		Vector3f diff = Vector3f.Sub(c, o);
+		diff.y = -diff.y;
 		float b = Vector3f.Dot(currentRay, diff);
-		float alpha = diff.x / currentRay.x;
-		System.out.println(currentRay+" "+diff+" "+alpha);
 		float lengthSquared = diff.length()*diff.length();
 		float radiusSquared = r * r;
 		delta = radiusSquared+(b*b)-lengthSquared;
