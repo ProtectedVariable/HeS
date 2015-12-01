@@ -21,10 +21,17 @@ public class Loader {
 		return new Model(vaoID, indices.length);
 	}
 	
-	public static Model createModelVAO(float[] pos, float[] normals) {
+	public static Model createModelVAO(float[] pos) {
 		int vaoID = createVAO();
 		storeDataInAttributeList(0, 3, pos);
-		storeDataInAttributeList(2, 3, normals);
+		unbindVAO();
+		return new Model(vaoID, pos.length);
+	}
+	
+	public static Model createTexturedModelVAO(float[] pos, float[] textures) {
+		int vaoID = createVAO();
+		storeDataInAttributeList(0, 3, pos);
+		//storeDataInAttributeList(3, 2, textures);
 		unbindVAO();
 		return new Model(vaoID, pos.length);
 	}

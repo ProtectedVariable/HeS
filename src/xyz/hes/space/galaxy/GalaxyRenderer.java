@@ -12,71 +12,34 @@ import xyz.hes.core.Camera;
 
 public class GalaxyRenderer {
 
-	private Model GalaxyModel_1;
 	private GalaxyShader shader;
-
-	static float[] cubeVertexData = new float[] {
-			-1.0f, -1.0f, 1.0f,
-			1.0f, -1.0f, 1.0f,
-			1.0f, 1.0f, 1.0f,
-			-1.0f, 1.0f, 1.0f,
-
-			-1.0f, -1.0f, -1.0f,
-			1.0f, -1.0f, -1.0f,
-			1.0f, 1.0f, -1.0f,
-			-1.0f, 1.0f, -1.0f
-	};
-
-	static int[] indicesVboData = new int[] {
-			0, 1, 2, 2, 3, 0, // FRONT
-			3, 2, 6, 6, 7, 3, // TOP
-			7, 6, 5, 5, 4, 7, // BACK
-			4, 0, 3, 3, 7, 4, // LEFT
-			0, 4, 5, 5, 1, 0, // BOTTOM
-			1, 5, 6, 6, 2, 1, // RIGHT
-	};
-
-	static float[] texCoords = new float[] {
-			0, 0,
-			1, 0,
-			1, 1,
-			0, 1,
-			0, 0,
-			1, 0,
-			1, 1,
-			0, 1
-	};
 
 	Vector3f nulVec = new Vector3f();
 	Vector3f oneVec = new Vector3f(1, 1, 1);
 	private ProjectionMatrix pr_mat;
-	
+
 	public GalaxyRenderer(ProjectionMatrix pr) {
 		this.pr_mat = pr;
-		GalaxyModel_1 = Loader.createModelVAO(cubeVertexData, cubeVertexData, texCoords, indicesVboData);
 		shader = new GalaxyShader();
 	}
 
 	public void renderGalaxies(Camera camera, Galaxy[] galaxies) {
 		shader.setPr_mat(this.getPr_mat());
 		shader.setVw_mat(camera.vw_matrix);
-		
+
 		shader.start();
-		glBindVertexArray(GalaxyModel_1.getVaoID());
-		glEnableVertexAttribArray(0);
-		glEnableVertexAttribArray(2);
-		glEnableVertexAttribArray(3);
 		shader.loadOnceUniforms();
-		for (int i = 0; i < galaxies.length;i++) {
-			shader.getMl_mat().Transform(galaxies[i].getPosition(), 0, nulVec, oneVec);
-			shader.loadUniforms();		
-			shader.setUniform(shader.getUniformLocation("color"), galaxies[i].getColor());
-			glDrawElements(GL_TRIANGLES, GalaxyModel_1.getVertexCount(), GL_UNSIGNED_INT, 0);
+		for (int i = 0; i < galaxies.length; i++) {
+			Galaxy galaxy = galaxies[i];
+			glBindVertexArray(galaxy.getModel().getVaoID());
+			glEnableVertexAttribArray(0);
+			shader.getMl_mat().Transform(galaxy.getPosition(), galaxy.getRx(), galaxy.getRy(), galaxy.getRz(), oneVec);
+			shader.loadUniforms();
+			shader.setUniform(shader.getUniformLocation("color"), galaxy.getColor());
+			glDrawArrays(GL_POINTS, 0, galaxies[i].getModel().getVertexCount());
+			glDisableVertexAttribArray(0);
+			glBindVertexArray(0);
 		}
-		glDisableVertexAttribArray(0);
-		glDisableVertexAttribArray(2);
-		glDisableVertexAttribArray(3);
-		glBindVertexArray(0);
 		shader.stop();
 	}
 

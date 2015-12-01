@@ -7,9 +7,11 @@ public class ModelMatrix extends Matrix4f {
 		this.Identity();
 	}
 
-	public void Transform(Vector3f position, float angle, Vector3f rotation, Vector3f scale) {
+	public void Transform(Vector3f position, float anglex, float angley, float anglez, Vector3f scale) {
 		this.Identity();
-		this.Rotate(angle, rotation.x, rotation.y, rotation.z);
+		this.Rotate(anglex, 1,0,0);
+		this.Rotate(angley, 0,1,0);
+		this.Rotate(anglez, 0,0,1);
 		this.Scale(scale);
 		this.translate(position);
 

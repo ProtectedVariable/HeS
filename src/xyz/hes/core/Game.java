@@ -5,7 +5,6 @@ import static org.lwjgl.glfw.GLFW.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import me.soldier.math.Vector3f;
 import me.soldier.util.FileReader;
 import me.soldier.util.MousePicker;
 import xyz.hes.enemy.Enemy;
@@ -29,7 +28,7 @@ public class Game {
 	public Game() {
 		this.renderer = new MasterRenderer();
 		this.renderer.setLOD(LevelOfDetail.DEBUG);
-		this.universe = new Universe(this.renderer.getLOD().getExposant());
+		this.universe = new Universe(10);
 		this.observed = this.universe;
 		this.pov = new Camera(0, 0, 330);
 
@@ -69,18 +68,30 @@ public class Game {
 	public void Update() {
 		mousePicker.Update(Main.mouseX, Main.mouseY);
 		if (observed instanceof Universe) {
-			if ((pov.position.z > -20 && ScrollHandler.getdY() < 0) || (pov.position.z < 330 && ScrollHandler.getdY() > 0)) {
-				pov.position.z += ScrollHandler.getdY();
+			UpdateUniverse();
+		} else if (observed instanceof Galaxy) {
+			if(Input.isKeyPressed(GLFW_KEY_ESCAPE)) {
+				observed = this.universe;
 			}
 		}
-
+	}
+	
+	private void UpdateUniverse() {
+		if ((pov.position.z > -20 && ScrollHandler.getdY() < 0) || (pov.position.z < 330 && ScrollHandler.getdY() > 0)) {
+			pov.position.z += ScrollHandler.getdY();
+		}
+		
 		for (int i = 0; i < universe.getGalaxies().length; i++) {
-			if (mousePicker.collideWithObj(universe.getGalaxies()[i].getPosition(), pov.position, 2))
-				universe.getGalaxies()[i].setColor(0, 0, 1);
+			if (mousePicker.collideWithObj(universe.getGalaxies()[i].getPosition(), pov.position, 10)) {
+				universe.getGalaxies()[i].setColor(1, 0, 0);
+				if(MouseHandler.isButtonDown(0)) {
+					observed = universe.getGalaxies()[i];
+				}
+			}
 			else
 				universe.getGalaxies()[i].setColor(1, 1, 1);
 		}
-
+		
 		if (Input.isKeyDown(GLFW_KEY_LEFT)) {
 			pov.position.x -= 1.2f;
 		}
