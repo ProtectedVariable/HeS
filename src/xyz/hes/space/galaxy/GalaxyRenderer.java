@@ -23,7 +23,7 @@ public class GalaxyRenderer {
 	public GalaxyRenderer(ProjectionMatrix pr) {
 		this.pr_mat = pr;
 		shader = new GalaxyShader();
-		tex = new Texture("/src/res/particle.png");
+		tex = new Texture("res/particle.png");
 	}
 
 	public void renderGalaxies(Camera camera, Galaxy[] galaxies) {

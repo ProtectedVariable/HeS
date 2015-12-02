@@ -132,9 +132,9 @@ public class Main {
 		GL.createCapabilities();
 		System.out.println("OpenGL: " + glGetString(GL_VERSION));
 		glEnable(GL_BLEND);
-		//glEnable(GL20.GL_POINT_SPRITE);
+		glEnable(GL20.GL_POINT_SPRITE);
 		glEnable(GL20.GL_VERTEX_PROGRAM_POINT_SIZE);
-		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE);
 		glEnable(GL13.GL_MULTISAMPLE);
 		glViewport(0, 0, width, height);
 	}
