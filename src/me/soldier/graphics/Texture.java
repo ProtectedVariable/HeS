@@ -3,14 +3,15 @@ package me.soldier.graphics;
 import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.opengl.GL30.*;
 
-import java.awt.image.*;
-import java.io.*;
-import java.nio.*;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.nio.ByteBuffer;
 
-import javax.imageio.*;
+import javax.imageio.ImageIO;
 
-import org.lwjgl.*;
-import org.lwjgl.opengl.*;
+import org.lwjgl.BufferUtils;
+import org.lwjgl.opengl.GL13;
+import org.lwjgl.opengl.GL14;
 
 public class Texture {
 
@@ -62,7 +63,6 @@ public class Texture {
 		}
 
 		buffer.flip(); // FOR THE LOVE OF GOD DO NOT FORGET THIS
-
 		// You now have a ByteBuffer filled with the color data of each pixel.
 		// Now just create a texture ID and bind it. Then you can load it using
 		// whatever OpenGL method you want, for example:
@@ -92,13 +92,15 @@ public class Texture {
 
 	private BufferedImage loadImage(String loc)
 	{
+		BufferedImage img = null;
 		try {
 			//Main class
-			return ImageIO.read(new File(loc));
+			img = ImageIO.read(ClassLoader.getSystemResourceAsStream(loc));
 		} catch (IOException e) {
 			// Error Handling Here
+			e.printStackTrace();
 		}
-		return null;
+		return img;
 	}
 	
 	public int getId() {

@@ -83,13 +83,13 @@ public class Game {
 		
 		for (int i = 0; i < universe.getGalaxies().length; i++) {
 			if (mousePicker.collideWithObj(universe.getGalaxies()[i].getPosition(), pov.position, 10)) {
-				universe.getGalaxies()[i].setColor(1, 0, 0);
+				universe.getGalaxies()[i].MouseHover = true;
 				if(MouseHandler.isButtonDown(0)) {
 					observed = universe.getGalaxies()[i];
 				}
 			}
 			else
-				universe.getGalaxies()[i].setColor(1, 1, 1);
+				universe.getGalaxies()[i].MouseHover = false;
 		}
 		
 		if (Input.isKeyDown(GLFW_KEY_LEFT)) {

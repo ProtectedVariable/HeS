@@ -8,6 +8,6 @@ out vec4 outColor;
 uniform sampler2D tex;
 
 void main() {
-	//outColor = texture(tex, texCoord);
-	outColor = vec4(color, 1.0);
+	outColor = texture(tex, gl_PointCoord);
+	//outColor = vec4(color, 1.0);
 }

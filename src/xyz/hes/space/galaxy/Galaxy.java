@@ -12,11 +12,13 @@ public class Galaxy {
 
 	private SolarSystem[] systems;
 	private Vector3f position;
-	private Vector3f color = new Vector3f(1, 1, 1);
+	private Vector3f color = new Vector3f((float)Math.random(), (float)Math.random(), (float)Math.random());
 
 	private float[] vertices;
 	private Model model;
 	private float rx,ry,rz;
+	public boolean MouseHover = false;
+
 	
 	public Galaxy(int size) {
 		systems = new SolarSystem[size * 10];
@@ -30,8 +32,8 @@ public class Galaxy {
 	private void defineVertices() {
 		List<Float> vert = new LinkedList<Float>();
 		float A, B, N;
-		A = (int) Math.round(Math.random()*5+10);
-		B = (float) (Math.random()+0.5);
+		A = 15;
+		B = (float) (Math.random()*0.5+0.5);
 		N = (float) Math.round((Math.random()+2)*6);
 		for (int i = 0; i < 360; i++) {
 			float theta = (float) Math.toRadians(i);
