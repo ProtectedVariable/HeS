@@ -54,7 +54,6 @@ public class Main {
 			glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 			glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 			glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
-			System.setProperty("org.lwjgl.opengl.Display.enableOSXFullscreenModeAPI", "true");
 		}
 		window = glfwCreateWindow(width, height, "HeS", NULL, NULL);
 		if (window == NULL) {
@@ -132,7 +131,7 @@ public class Main {
 		GL.createCapabilities();
 		System.out.println("OpenGL: " + glGetString(GL_VERSION));
 		glEnable(GL_BLEND);
-		glEnable(GL20.GL_POINT_SPRITE);
+		//glEnable(GL20.GL_POINT_SPRITE);
 		glEnable(GL20.GL_VERTEX_PROGRAM_POINT_SIZE);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE);
 		glEnable(GL13.GL_MULTISAMPLE);

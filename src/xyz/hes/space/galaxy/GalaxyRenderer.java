@@ -23,14 +23,14 @@ public class GalaxyRenderer {
 	public GalaxyRenderer(ProjectionMatrix pr) {
 		this.pr_mat = pr;
 		shader = new GalaxyShader();
-		tex = new Texture("res/particle.png");
+		//tex = new Texture("res/particle.png");
 	}
 
 	public void renderGalaxies(Camera camera, Galaxy[] galaxies) {
 		shader.setPr_mat(this.getPr_mat());
 		shader.setVw_mat(camera.vw_matrix);
 		GL13.glActiveTexture(GL13.GL_TEXTURE0);
-		tex.bind();
+		//tex.bind();
 		shader.start();
 		shader.loadOnceUniforms();
 		for (int i = 0; i < galaxies.length; i++) {
