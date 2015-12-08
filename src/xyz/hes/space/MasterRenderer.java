@@ -13,7 +13,7 @@ import xyz.hes.space.universe.Universe;
 
 public class MasterRenderer {
 	
-	private LevelOfDetail LOD;
+	public static LevelOfDetail LOD;
 
 	private GalaxyRenderer galaxyRenderer;
 	private SolarSystemRenderer systemRenderer;
