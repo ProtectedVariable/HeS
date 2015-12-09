@@ -26,8 +26,7 @@ public class Game {
 	private MousePicker mousePicker;
 
 	public Game() {
-		this.renderer = new MasterRenderer();
-		this.renderer.setLOD(LevelOfDetail.DEBUG);
+		this.renderer = new MasterRenderer(LevelOfDetail.DEBUG);
 		this.universe = new Universe(10);
 		this.observed = this.universe;
 		this.pov = new Camera(0, 0, 330);

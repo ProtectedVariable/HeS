@@ -26,8 +26,8 @@ public class MasterRenderer {
 	private float near = 0.1f;
 	private float far = 1000f;
 	
-	public MasterRenderer() {
-		
+	public MasterRenderer(LevelOfDetail lod) {
+		LOD = lod;
 		this.aspect = (float)Main.width/(float)Main.height;
 		this.perspective = new ProjectionMatrix(fov, aspect, near, far);
 		
