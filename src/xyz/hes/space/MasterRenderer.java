@@ -36,11 +36,13 @@ public class MasterRenderer {
 		this.planetRenderer = new PlanetRender();
 	}
 	
-	public void RenderUniverse(Camera camera, Universe u) {
+	public void RenderUniverse(Camera camera, Universe u, Background b) {
+		this.galaxyRenderer.renderBackground(b);
 		this.galaxyRenderer.renderGalaxies(camera, u.getGalaxies());
 	}
 	
-	public void RenderGalaxy(Camera camera, Galaxy g) {
+	public void RenderGalaxy(Camera camera, Galaxy g, Background b) {
+		this.galaxyRenderer.renderBackground(b);
 		this.galaxyRenderer.renderGalaxy(camera, g);
 	}
 	

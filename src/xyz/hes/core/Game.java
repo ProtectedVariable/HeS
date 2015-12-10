@@ -8,6 +8,7 @@ import java.util.List;
 import me.soldier.util.FileReader;
 import me.soldier.util.MousePicker;
 import xyz.hes.enemy.Enemy;
+import xyz.hes.space.Background;
 import xyz.hes.space.MasterRenderer;
 import xyz.hes.space.MasterRenderer.LevelOfDetail;
 import xyz.hes.space.galaxy.Galaxy;
@@ -24,6 +25,9 @@ public class Game {
 	public static String LANG_PATH = "src/res/lang/en/";
 	private List<Enemy> enemies;
 	private MousePicker mousePicker;
+	//Space backgrounds
+	Background universeBack;
+	Background galaxyBack;
 
 	public Game() {
 		this.renderer = new MasterRenderer(LevelOfDetail.DEBUG);
@@ -32,6 +36,9 @@ public class Game {
 		this.pov = new Camera(0, 0, 330);
 
 		this.enemies = new ArrayList<Enemy>();
+		
+		this.universeBack = new Background(500, 500);
+		this.galaxyBack = new Background(300, 100);
 
 		List<String> f = FileReader.readFile(LANG_PATH + "E_N1.txt");
 		List<String> s = FileReader.readFile(LANG_PATH + "E_N2.txt");
@@ -52,9 +59,9 @@ public class Game {
 		pov.lookThrough();
 
 		if (observed instanceof Universe) {
-			renderer.RenderUniverse(pov, (Universe) observed);
+			renderer.RenderUniverse(pov, (Universe) observed, universeBack);
 		} else if (observed instanceof Galaxy) {
-			renderer.RenderGalaxy(pov, (Galaxy) observed);
+			renderer.RenderGalaxy(pov, (Galaxy) observed, galaxyBack);
 		} else if (observed instanceof SolarSystem) {
 			renderer.RenderSystem(pov, (SolarSystem) observed);
 		} else if (observed instanceof Planet) {
@@ -69,6 +76,7 @@ public class Game {
 		if (observed instanceof Universe) {
 			UpdateUniverse();
 		} else if (observed instanceof Galaxy) {
+			galaxyBack.Update();
 			if(Input.isKeyPressed(GLFW_KEY_ESCAPE)) {
 				observed = this.universe;
 			}
@@ -76,6 +84,7 @@ public class Game {
 	}
 	
 	private void UpdateUniverse() {
+		universeBack.Update();
 		if ((pov.position.z > -20 && ScrollHandler.getdY() < 0) || (pov.position.z < 330 && ScrollHandler.getdY() > 0)) {
 			pov.position.z += ScrollHandler.getdY();
 		}

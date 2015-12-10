@@ -5,16 +5,26 @@ import me.soldier.meshutil.Model;
 
 public class ShootingStar {
 
-	float[] vertices = new float[] { 0, 0, -1 };
+	float[] vertices = new float[] { 0, 0, 0 };
 	private Model model;
 	private float x,y;
+	private float ax, ay;
 	private float ttl = 100;
 	
 	
 	public ShootingStar(float x, float y) {
 		this.setX(x);
 		this.setY(y);
+		ax = (float)(Math.random()+0.5)*5f;
+		ay = (float)(Math.random()+0.5)*5f;
 		this.model = Loader.createModelVAO(vertices);
+	}
+	
+	public boolean update() {
+		ttl--;
+		x += ax;
+		y -= ay;
+		return ttl > 0;
 	}
 
 	public Model getModel() {
