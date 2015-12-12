@@ -43,7 +43,7 @@ public class Matrix4f {
 
 		fov = (float) Math.toRadians(fov);
 
-		float ys = (float) ((1f / Math.tan(fov/2f)) * aspect);
+		float ys = (float) ((1f / Math.tan(fov/2f)));
 		float xs = ys / aspect;
 		
 		float frustrum_length = near - far;

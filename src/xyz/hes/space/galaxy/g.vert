@@ -11,7 +11,6 @@ uniform mat4 vw_mat;
 uniform mat4 pr_mat;
 
 void main() {
-	gl_PointSize = 6.0;
 	gl_Position = vec4(vertex,1.0) * ml_mat * vw_mat * pr_mat;
-	//texCoord = inTexCoord;
+	gl_PointSize = 2-(gl_Position.z/330.0);
 }

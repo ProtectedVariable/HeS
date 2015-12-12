@@ -26,7 +26,7 @@ public class Galaxy {
 		for (int i = 0; i < systems.length; i++) {
 			systems[i] = new SolarSystem((int) (Math.random() * 9 + 1));
 		}
-		this.setPosition(new Vector3f((float) (Math.random() - 0.5) * 200, (float) (Math.random() - 0.5) * 200, -100));
+		this.setPosition(new Vector3f((float) (Math.random() - 0.5) * 400, (float) (Math.random() - 0.5) * 400, -100));
 		defineVertices();
 	}
 

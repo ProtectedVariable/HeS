@@ -45,7 +45,7 @@ public class Game {
 		List<String> t = FileReader.readFile(LANG_PATH + "E_N3.txt");
 		List<String> l = FileReader.readFile(LANG_PATH + "E_N4.txt");
 
-		for (int i = 0; i <= 10; i++) {
+		for (int i = 0; i < 10; i++) {
 			String name = Enemy.generateName(f, s, t, l);
 			System.out.println(name);
 			this.enemies.add(new Enemy(null, null, name));
