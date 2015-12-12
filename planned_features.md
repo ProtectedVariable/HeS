@@ -4,10 +4,10 @@
 - [x] Galaxies generation
 - [x] Solar systems generation
 - [x] planets basic generation
-- [x] Galaxies rendering
+- [x] Galaxies basic rendering
 - [x] Enemies basic name generation
 - [ ] Player profile
-- [ ] Solar systems renderin
+- [ ] Solar systems rendering
 - [ ] planet rendering
 - [ ] planet interaction/life
 - [ ] attacks/conflics
