@@ -1,4 +1,4 @@
-package xyz.hes.enemy;
+package xyz.hes.players;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,18 +7,20 @@ import java.util.Random;
 import xyz.hes.space.galaxy.Galaxy;
 import xyz.hes.space.objects.Planet;
 
-public class Enemy {
+public class Player {
 
 	private static Random rand = new Random();
 	private static ArrayList<String> usedNames = new ArrayList<String>();
 	
-	ArrayList<Galaxy> galaxies;
-	ArrayList<Planet> planets;
-	String name;
+	private String name;
 	
-	public Enemy(ArrayList<Galaxy> galaxies, ArrayList<Planet> planets, String name) {
-		this.galaxies = galaxies;
-		this.planets = planets;
+	public Player(ArrayList<Galaxy> galaxies, ArrayList<Planet> planets, String name) {
+		for(Galaxy g : galaxies) {
+			g.setOwner(this);
+		}
+		for(Planet p : planets) {
+			p.setOwner(this);
+		}
 		this.name = name;
 	}
 

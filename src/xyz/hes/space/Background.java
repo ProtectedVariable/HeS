@@ -19,7 +19,7 @@ public class Background {
 	}
 
 	public void Update() {
-		boolean add = Math.random() > 0.8;
+		boolean add = Math.random() > 0.985;
 		for (int i = 0; i < ssa.length; i++) {
 			ShootingStar star = ssa[i];
 			if (star == null) {

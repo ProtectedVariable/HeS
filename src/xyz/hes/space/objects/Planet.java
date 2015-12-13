@@ -1,6 +1,8 @@
 package xyz.hes.space.objects;
 
-public class Planet {
+import xyz.hes.space.SpaceProperty;
+
+public class Planet extends SpaceProperty {
 
 	public static int TEMP_COUNT = 0;
 	

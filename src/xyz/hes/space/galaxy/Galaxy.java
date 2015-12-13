@@ -7,9 +7,10 @@ import me.soldier.math.Vector3f;
 import me.soldier.meshutil.Loader;
 import me.soldier.meshutil.Model;
 import xyz.hes.space.MasterRenderer;
+import xyz.hes.space.SpaceProperty;
 import xyz.hes.space.objects.SolarSystem;
 
-public class Galaxy {
+public class Galaxy extends SpaceProperty {
 
 	private SolarSystem[] systems;
 	private Vector3f position;

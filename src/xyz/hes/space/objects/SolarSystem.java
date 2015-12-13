@@ -1,6 +1,8 @@
 package xyz.hes.space.objects;
 
-public class SolarSystem {
+import xyz.hes.space.SpaceProperty;
+
+public class SolarSystem extends SpaceProperty {
 
 	private Star sun;
 	private Planet[] planets;
