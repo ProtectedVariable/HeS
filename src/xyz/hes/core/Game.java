@@ -28,7 +28,7 @@ public class Game {
 	//Space backgrounds
 	Background universeBack;
 	Background galaxyBack;
-
+	
 	public Game() {
 		this.renderer = new MasterRenderer(LevelOfDetail.DEBUG);
 		this.universe = new Universe(10);
@@ -40,13 +40,8 @@ public class Game {
 		this.universeBack = new Background(500, 500);
 		this.galaxyBack = new Background(300, 100);
 
-		List<String> f = FileReader.readFile(LANG_PATH + "E_N1.txt");
-		List<String> s = FileReader.readFile(LANG_PATH + "E_N2.txt");
-		List<String> t = FileReader.readFile(LANG_PATH + "E_N3.txt");
-		List<String> l = FileReader.readFile(LANG_PATH + "E_N4.txt");
-
 		for (int i = 0; i < 10; i++) {
-			String name = Enemy.generateName(f, s, t, l);
+			String name = Enemy.generateName(FileReader.readFile(LANG_PATH + "E_N1.txt"), FileReader.readFile(LANG_PATH + "E_N2.txt"), FileReader.readFile(LANG_PATH + "E_N3.txt"), FileReader.readFile(LANG_PATH + "E_N4.txt"));
 			System.out.println(name);
 			this.enemies.add(new Enemy(null, null, name));
 		}

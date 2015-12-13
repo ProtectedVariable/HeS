@@ -30,6 +30,9 @@ public class Galaxy {
 		defineVertices();
 	}
 
+	/**
+	 * Placeholder
+	 */
 	private void defineVertices() {
 		List<Float> vert = new LinkedList<Float>();
 		float A, B, N;
@@ -46,7 +49,7 @@ public class Galaxy {
 			vert.add((float) (-value * Math.cos(theta)));
 			vert.add((float) (-value * Math.sin(theta)));
 			vert.add(0f);
-			//Random decorations
+			//Random elements
 			for(int j = 0; j < 2*MasterRenderer.LOD.getExposant();j++) {
 				vert.add((float) (-value * Math.cos(theta)+Math.random()));
 				vert.add((float) (-value * Math.sin(theta)+Math.random()));
