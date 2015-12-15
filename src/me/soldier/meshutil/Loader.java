@@ -14,7 +14,7 @@ public class Loader {
 	public static Model createModelVAO(float[] pos, float[] normals, float[] tex, int[] indices) {
 		int vaoID = createVAO();
 		storeDataInAttributeList(0, 3, pos);
-		storeDataInAttributeList(2, 3, normals);
+		storeDataInAttributeList(1, 3, normals);
 		storeDataInAttributeList(3, 2, tex);
 		bindIndicesBuffer(indices);
 		unbindVAO();
@@ -31,7 +31,7 @@ public class Loader {
 	public static Model createTexturedModelVAO(float[] pos, float[] textures) {
 		int vaoID = createVAO();
 		storeDataInAttributeList(0, 3, pos);
-		//storeDataInAttributeList(3, 2, textures);
+		storeDataInAttributeList(3, 2, textures);
 		unbindVAO();
 		return new Model(vaoID, pos.length);
 	}
@@ -39,7 +39,7 @@ public class Loader {
 	public static Model createModelVAO(float[] pos, float[] normals, int[] indices) {
 		int vaoID = createVAO();
 		storeDataInAttributeList(0, 3, pos);
-		storeDataInAttributeList(2, 3, normals);
+		storeDataInAttributeList(1, 3, normals);
 		bindIndicesBuffer(indices);
 		unbindVAO();
 		return new Model(vaoID, indices.length);

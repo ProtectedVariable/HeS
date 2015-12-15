@@ -70,24 +70,27 @@ public class GalaxyRenderer {
 		//TODO Add dust and stuff
 		for(SolarSystem ss : g.getSystems()) {
 			sShader.getMlMat().Transform(ss.getPosition(), 0, 0, 0, Vector3f.oneVec);
+			sShader.getMlMat().Rotate(20, 1, 0, 0);
 			sShader.loadUniforms();
 			
 			glBindVertexArray(Star.getModel().getVaoID());
 			glEnableVertexAttribArray(0);
 			glEnableVertexAttribArray(1);
-			glEnableVertexAttribArray(2);
+			glEnableVertexAttribArray(3);
 			glDrawElements(GL_TRIANGLES, Star.getModel().getVertexCount(), GL_UNSIGNED_INT, 0);
 			glDisableVertexAttribArray(0);
 			glDisableVertexAttribArray(1);
-			glDisableVertexAttribArray(2);
+			glDisableVertexAttribArray(3);
 			glBindVertexArray(0);
 		}
 		
 		gShader.stop();
 	}
 	
-	public void renderBackground(Background back) {
+	public void renderBackground(Camera c, Background back) {
 		gShader.start();
+		gShader.setVw_mat(c.vw_matrix);
+		gShader.loadOnceUniforms();
 		gShader.setColor(Vector3f.oneVec);
 		gShader.getMl_mat().Transform(Vector3f.nulVec, 0, 0, 0, Vector3f.oneVec);
 		gShader.loadUniforms();

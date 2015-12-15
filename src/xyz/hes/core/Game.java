@@ -107,7 +107,8 @@ public class Game {
 			pov.position.x += 1.2f;
 		}
 		if (Input.isKeyDown(GLFW_KEY_UP)) {
-			pov.position.y += 1.2f;
+			//pov.position.y += 1.2f;
+			pov.pitch++;
 		}
 		if (Input.isKeyDown(GLFW_KEY_DOWN)) {
 			pov.position.y -= 1.2f;

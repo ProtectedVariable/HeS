@@ -7,8 +7,8 @@ import me.soldier.math.ViewMatrix;
 
 public class SolarSystemShader extends Shader {
 
-	private final static String VERT_FILE = "src/xyz/hes/space/planets/p.vert";
-	private final static String FRAG_FILE = "src/xyz/hes/space/planets/p.frag";
+	private final static String VERT_FILE = "src/xyz/hes/space/solarsystems/ss.vert";
+	private final static String FRAG_FILE = "src/xyz/hes/space/solarsystems/ss.frag";
 	
 	private int mlMatLoc, vwMatLoc, prMatLoc;
 	private ModelMatrix mlMat;
@@ -18,6 +18,9 @@ public class SolarSystemShader extends Shader {
 	public SolarSystemShader() {
 		super(VERT_FILE, FRAG_FILE);
 		this.setMlMat(new ModelMatrix());
+		this.vwMatLoc = this.getUniformLocation("vw_mat");
+		this.mlMatLoc = this.getUniformLocation("ml_mat");
+		this.prMatLoc = this.getUniformLocation("pr_mat");
 	}
 	
 	public void loadOnceUniforms() {

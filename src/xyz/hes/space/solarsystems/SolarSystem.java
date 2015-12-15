@@ -11,7 +11,7 @@ public class SolarSystem extends SpaceProperty {
 	private Vector3f position;
 	
 	public SolarSystem(int starCount) {
-		this.setPosition(new Vector3f((float)Math.random()-0.5f, 0, (float)Math.random()-0.5f));
+		this.setPosition(new Vector3f((float)(Math.random()-0.5f)*100, 0, (float)(Math.random()-0.5f)*100));
 		this.sun = new Star(starCount);
 		this.planets = new Planet[starCount];
 		for (int i = 0; i < planets.length; i++) {
