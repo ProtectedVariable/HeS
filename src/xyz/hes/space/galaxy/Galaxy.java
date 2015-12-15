@@ -8,7 +8,7 @@ import me.soldier.meshutil.Loader;
 import me.soldier.meshutil.Model;
 import xyz.hes.space.MasterRenderer;
 import xyz.hes.space.SpaceProperty;
-import xyz.hes.space.objects.SolarSystem;
+import xyz.hes.space.solarsystems.SolarSystem;
 
 public class Galaxy extends SpaceProperty {
 

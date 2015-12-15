@@ -5,10 +5,10 @@ import xyz.hes.core.Camera;
 import xyz.hes.core.Main;
 import xyz.hes.space.galaxy.Galaxy;
 import xyz.hes.space.galaxy.GalaxyRenderer;
-import xyz.hes.space.objects.Planet;
-import xyz.hes.space.objects.PlanetRender;
-import xyz.hes.space.objects.SolarSystem;
-import xyz.hes.space.objects.SolarSystemRenderer;
+import xyz.hes.space.planets.Planet;
+import xyz.hes.space.planets.PlanetRender;
+import xyz.hes.space.solarsystems.SolarSystem;
+import xyz.hes.space.solarsystems.SolarSystemRenderer;
 import xyz.hes.space.universe.Universe;
 
 public class MasterRenderer {
@@ -32,8 +32,8 @@ public class MasterRenderer {
 		this.perspective = new ProjectionMatrix(fov, aspect, near, far);
 		
 		this.galaxyRenderer = new GalaxyRenderer(this.perspective);
-		this.systemRenderer = new SolarSystemRenderer();
-		this.planetRenderer = new PlanetRender();
+		this.systemRenderer = new SolarSystemRenderer(this.perspective);
+		this.planetRenderer = new PlanetRender(this.perspective);
 	}
 	
 	public void RenderUniverse(Camera camera, Universe u, Background b) {

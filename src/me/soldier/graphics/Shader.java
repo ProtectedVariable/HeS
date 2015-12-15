@@ -37,7 +37,9 @@ public abstract class Shader {
 	}
 	
 	
-	protected abstract void bindAttributes();
+	protected void bindAttributes() {
+		
+	}
 	public abstract void loadUniforms();
 	
 	protected void bindAttribute(int attr, String varName) {

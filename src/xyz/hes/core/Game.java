@@ -12,8 +12,8 @@ import xyz.hes.space.Background;
 import xyz.hes.space.MasterRenderer;
 import xyz.hes.space.MasterRenderer.LevelOfDetail;
 import xyz.hes.space.galaxy.Galaxy;
-import xyz.hes.space.objects.Planet;
-import xyz.hes.space.objects.SolarSystem;
+import xyz.hes.space.planets.Planet;
+import xyz.hes.space.solarsystems.SolarSystem;
 import xyz.hes.space.universe.Universe;
 
 public class Game {
@@ -67,7 +67,7 @@ public class Game {
 		} else if (observed instanceof Planet) {
 			renderer.RenderPlanet(pov, (Planet) observed);
 		} else {
-			throw new IllegalArgumentException("Observed object isn't a renderable object");
+			throw new IllegalStateException("Observed object isn't a renderable object");
 		}
 	}
 

@@ -1,5 +1,5 @@
 #Todo list
-##Alpha
+##Alpha 0
 
 - [x] Galaxies generation
 - [x] Solar systems generation
@@ -13,7 +13,6 @@
 - [ ] attacks/conflics
 - [ ] global empire managment
 
-##Beta
-
-Yet to be thought
+##Alpha 1
+- [ ] Star moving texture (procedural ?)
 

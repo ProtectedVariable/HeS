@@ -3,6 +3,9 @@ package me.soldier.math;
 public class Vector3f {
 
 	public float x, y, z;
+	
+	public static final Vector3f oneVec = new Vector3f(1, 1, 1);
+	public static final Vector3f nulVec = new Vector3f(0, 0, 0);
 
 	public Vector3f(float x, float y, float z) {
 		this.x = x;

@@ -1,7 +1,6 @@
 package xyz.hes.space.universe;
 
 import xyz.hes.space.galaxy.Galaxy;
-import xyz.hes.space.objects.Planet;
 
 public class Universe {
 
@@ -12,7 +11,6 @@ public class Universe {
 		for (int i = 0; i < galaxies.length; i++) {
 			galaxies[i] = new Galaxy((int) ((Math.random()+1)*10));
 		}
-		System.out.println("Number of planets: "+Planet.TEMP_COUNT);
 	}
 
 	public Galaxy[] getGalaxies() {
