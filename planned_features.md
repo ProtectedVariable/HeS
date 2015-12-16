@@ -7,6 +7,7 @@
 - [x] Galaxies basic rendering
 - [x] Enemies basic name generation
 - [ ] Player profile
+- [x] galaxy basic rendering
 - [ ] Solar systems rendering
 - [ ] planet rendering
 - [ ] planet interaction/life

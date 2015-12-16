@@ -31,6 +31,7 @@ public class GalaxyRenderer {
 	}
 
 	public void renderGalaxies(Camera camera, Galaxy[] galaxies) {
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE);
 		gShader.setPr_mat(this.getPr_mat());
 		gShader.setVw_mat(camera.vw_matrix);
 		GL13.glActiveTexture(GL13.GL_TEXTURE0);
@@ -56,21 +57,24 @@ public class GalaxyRenderer {
 	}
 	
 	public void renderGalaxy(Camera camera, Galaxy g) {
+		glBlendFunc(GL_SRC_ALPHA, GL_ZERO);
 		sShader.start();
 		
 		camera.position.x = 0;
 		camera.position.y = 0;
-		camera.position.z = 70;
+		camera.position.z = 90;
 		camera.lookThrough();
 		
 		sShader.setPrMat(this.getPr_mat());
 		sShader.setVwMat(camera.vw_matrix);
+		sShader.setLightPosition(Vector3f.nulVec);
 		sShader.loadOnceUniforms();
-		
+
 		//TODO Add dust and stuff
 		for(SolarSystem ss : g.getSystems()) {
 			sShader.getMlMat().Transform(ss.getPosition(), 0, 0, 0, Vector3f.oneVec);
 			sShader.getMlMat().Rotate(20, 1, 0, 0);
+			sShader.setSun(0);
 			sShader.loadUniforms();
 			
 			glBindVertexArray(Star.getModel().getVaoID());
@@ -83,6 +87,21 @@ public class GalaxyRenderer {
 			glDisableVertexAttribArray(3);
 			glBindVertexArray(0);
 		}
+		
+		sShader.getMlMat().Transform(Vector3f.oneVec, 0, 0, 0, new Vector3f(2, 2, 2));
+		sShader.setSun(1);
+		sShader.loadUniforms();
+		
+		glBindVertexArray(Star.getModel().getVaoID());
+		glEnableVertexAttribArray(0);
+		glEnableVertexAttribArray(1);
+		glEnableVertexAttribArray(3);
+		glDrawElements(GL_TRIANGLES, Star.getModel().getVertexCount(), GL_UNSIGNED_INT, 0);
+		glDisableVertexAttribArray(0);
+		glDisableVertexAttribArray(1);
+		glDisableVertexAttribArray(3);
+		glBindVertexArray(0);
+		
 		
 		gShader.stop();
 	}

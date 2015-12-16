@@ -6,7 +6,17 @@ layout (location = 2) in vec2 texCoord;
 
 uniform mat4 ml_mat, vw_mat, pr_mat;
 
+uniform vec3 lightPos;
+
+out TO_FRAG {
+  vec3 normal;
+  vec3 toLight;
+} lightInfo;
+
 void main()
 {
-  gl_Position = vec4(vertex, 1.0) * ml_mat * vw_mat * pr_mat;
+  vec4 position = vec4(vertex, 1.0) * ml_mat;
+  gl_Position = position * vw_mat * pr_mat;
+  lightInfo.normal = normal;
+  lightInfo.toLight = lightPos-position.xyz;
 }

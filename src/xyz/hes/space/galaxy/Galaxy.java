@@ -23,7 +23,7 @@ public class Galaxy extends SpaceProperty {
 
 	
 	public Galaxy(int size) {
-		systems = new SolarSystem[size];
+		systems = new SolarSystem[size/3];
 		for (int i = 0; i < systems.length; i++) {
 			systems[i] = new SolarSystem((int) (Math.random() * 9 + 1));
 		}

@@ -74,6 +74,4 @@ public class GalaxyShader extends Shader {
 	public void setColor(Vector3f gColor) {
 		this.gColor = gColor;
 	}
-
-
 }

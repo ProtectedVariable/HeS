@@ -77,6 +77,9 @@ public class Game {
 			UpdateUniverse();
 		} else if (observed instanceof Galaxy) {
 			galaxyBack.Update();
+			for(SolarSystem ss : ((Galaxy)observed).getSystems()) {
+				ss.Update();
+			}
 			if(Input.isKeyPressed(GLFW_KEY_ESCAPE)) {
 				observed = this.universe;
 			}
@@ -107,8 +110,7 @@ public class Game {
 			pov.position.x += 1.2f;
 		}
 		if (Input.isKeyDown(GLFW_KEY_UP)) {
-			//pov.position.y += 1.2f;
-			pov.pitch++;
+			pov.position.y += 1.2f;
 		}
 		if (Input.isKeyDown(GLFW_KEY_DOWN)) {
 			pov.position.y -= 1.2f;
