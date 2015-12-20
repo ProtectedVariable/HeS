@@ -11,12 +11,12 @@ uniform vec3 lightPos;
 out TO_FRAG {
   vec3 normal;
   vec3 toLight;
-} lightIn;
+} lightInfo;
 
 void main()
 {
   vec4 position = vec4(vertex, 1.0) * ml_mat;
   gl_Position = position * vw_mat * pr_mat;
-  lightIn.normal = (vec4(normal, 0.0) * ml_mat).xyz;
-  lightIn.toLight = lightPos-position.xyz;
+  lightInfo.normal = normal;
+  lightInfo.toLight = lightPos-position.xyz;
 }

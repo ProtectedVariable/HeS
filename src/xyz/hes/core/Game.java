@@ -77,7 +77,6 @@ public class Game {
 			UpdateUniverse();
 		} else if (observed instanceof Galaxy) {
 			galaxyBack.Update();
-			UpdateUniverse();
 			for(SolarSystem ss : ((Galaxy)observed).getSystems()) {
 				ss.Update();
 			}

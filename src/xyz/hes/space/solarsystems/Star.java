@@ -10,7 +10,7 @@ public class Star {
 	private static Model starModel;
 	
 	static {
-		starModel = OBJLoader.loadObjModel("res/icosphere.obj");
+		starModel = OBJLoader.loadObjModel("res/sphere.obj");
 	}
 	
 	public Star(int size) {
