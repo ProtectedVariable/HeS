@@ -123,6 +123,7 @@ public class Main {
 		game.Update();
 		glfwPollEvents();
 		glfwGetCursorPos(window, mx, my);
+		ScrollHandler.update();
 		mouseX = (float)mx.get(0);
 		mouseY = (float)my.get(0);
 	}

@@ -2,7 +2,6 @@ package me.soldier.meshutil;
 
 import java.io.*;
 import java.util.*;
-
 import me.soldier.math.*;
 
 public class OBJLoader {

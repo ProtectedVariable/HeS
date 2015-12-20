@@ -8,10 +8,14 @@ public class ScrollHandler extends GLFWScrollCallback {
 	
 	@Override
 	public void invoke(long window, double xoffset, double yoffset) {
-		dY = Math.abs(yoffset) <= 0.1?0:(float)yoffset;
+		dY += yoffset/10f;
 	}
 
 	public static float getdY() {
 		return dY;
+	}
+	
+	public static void update() {
+		//dY -= (dY/20*Math.abs(dY));
 	}
 }

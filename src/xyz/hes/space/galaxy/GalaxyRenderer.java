@@ -58,6 +58,7 @@ public class GalaxyRenderer {
 	
 	public void renderGalaxy(Camera camera, Galaxy g) {
 		glBlendFunc(GL_SRC_ALPHA, GL_ZERO);
+		glEnable(GL_CULL_FACE);
 		sShader.start();
 		
 		camera.position.x = 0;
@@ -67,7 +68,7 @@ public class GalaxyRenderer {
 		
 		sShader.setPrMat(this.getPr_mat());
 		sShader.setVwMat(camera.vw_matrix);
-		sShader.setLightPosition(Vector3f.nulVec);
+		sShader.setLightPosition(Vector3f.oneVec);
 		sShader.loadOnceUniforms();
 
 		//TODO Add dust and stuff
@@ -88,7 +89,7 @@ public class GalaxyRenderer {
 			glBindVertexArray(0);
 		}
 		
-		sShader.getMlMat().Transform(Vector3f.oneVec, 0, 0, 0, new Vector3f(2, 2, 2));
+		sShader.getMlMat().Transform(Vector3f.oneVec, 0, 0, 0, new Vector3f(3, 3, 3));
 		sShader.setSun(1);
 		sShader.loadUniforms();
 		
