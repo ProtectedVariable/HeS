@@ -60,10 +60,10 @@ public class GalaxyRenderer {
 		glBlendFunc(GL_SRC_ALPHA, GL_ZERO);
 		sShader.start();
 		
-		camera.position.x = 0;
-		camera.position.y = 0;
-		camera.position.z = 90;
-		camera.lookThrough();
+//		camera.position.x = 0;
+//		camera.position.y = 0;
+//		camera.position.z = 90;
+//		camera.lookThrough();
 		
 		sShader.setPrMat(this.getPr_mat());
 		sShader.setVwMat(camera.vw_matrix);
