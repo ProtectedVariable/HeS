@@ -17,6 +17,6 @@ void main()
 {
   vec4 position = vec4(vertex, 1.0) * ml_mat;
   gl_Position = vec4(vertex, 1.0) * ml_mat * vw_mat * pr_mat;
-  lightInfo.normal = normal;
+  lightInfo.normal = (vec4(normal, 0.0) * ml_mat).xyz;
   lightInfo.toLight = lightPos-position.xyz;
 }

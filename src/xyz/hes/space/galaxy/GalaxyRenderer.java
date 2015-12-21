@@ -75,36 +75,32 @@ public class GalaxyRenderer {
 		for(SolarSystem ss : g.getSystems()) {
 			sShader.getMlMat().Transform(ss.getPosition(), 0, 0, 0, Vector3f.oneVec);
 			sShader.getMlMat().Rotate(20, 1, 0, 0);
-			sShader.setSun(0);
+			sShader.setSource(0);
 			sShader.loadUniforms();
 			
-			glBindVertexArray(Star.getModel().getVaoID());
-			glEnableVertexAttribArray(0);
-			glEnableVertexAttribArray(1);
-			glEnableVertexAttribArray(3);
-			glDrawElements(GL_TRIANGLES, Star.getModel().getVertexCount(), GL_UNSIGNED_INT, 0);
-			glDisableVertexAttribArray(0);
-			glDisableVertexAttribArray(1);
-			glDisableVertexAttribArray(3);
-			glBindVertexArray(0);
+			renderStarModel();
+
 		}
 		
 		sShader.getMlMat().Transform(Vector3f.oneVec, 0, 0, 0, new Vector3f(3, 3, 3));
-		sShader.setSun(1);
+		sShader.setSource(1);
 		sShader.loadUniforms();
 		
+		renderStarModel();
+		
+		gShader.stop();
+	}
+	
+	private void renderStarModel() {
 		glBindVertexArray(Star.getModel().getVaoID());
 		glEnableVertexAttribArray(0);
 		glEnableVertexAttribArray(1);
-		glEnableVertexAttribArray(3);
+		glEnableVertexAttribArray(2);
 		glDrawElements(GL_TRIANGLES, Star.getModel().getVertexCount(), GL_UNSIGNED_INT, 0);
 		glDisableVertexAttribArray(0);
 		glDisableVertexAttribArray(1);
-		glDisableVertexAttribArray(3);
+		glDisableVertexAttribArray(2);
 		glBindVertexArray(0);
-		
-		
-		gShader.stop();
 	}
 	
 	public void renderBackground(Camera c, Background back) {

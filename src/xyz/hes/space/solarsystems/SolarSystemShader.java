@@ -11,12 +11,12 @@ public class SolarSystemShader extends Shader {
 	private final static String VERT_FILE = "src/xyz/hes/space/solarsystems/ss.vert";
 	private final static String FRAG_FILE = "src/xyz/hes/space/solarsystems/ss.frag";
 	
-	private int mlMatLoc, vwMatLoc, prMatLoc, lightLoc, sunLoc;
+	private int mlMatLoc, vwMatLoc, prMatLoc, lightLoc, srcLoc;
 	private ModelMatrix mlMat;
 	private ViewMatrix vwMat;
 	private ProjectionMatrix prMat;
 	private Vector3f lightPosition;
-	private int sun;
+	private int source;
 	
 	public SolarSystemShader() {
 		super(VERT_FILE, FRAG_FILE);
@@ -25,7 +25,7 @@ public class SolarSystemShader extends Shader {
 		this.mlMatLoc = this.getUniformLocation("ml_mat");
 		this.prMatLoc = this.getUniformLocation("pr_mat");
 		this.lightLoc = this.getUniformLocation("lightPos");
-		this.sunLoc = this.getUniformLocation("sun");
+		this.srcLoc = this.getUniformLocation("source");
 	}
 	
 	public void loadOnceUniforms() {
@@ -37,7 +37,7 @@ public class SolarSystemShader extends Shader {
 	@Override
 	public void loadUniforms() {
 		this.setUniform(mlMatLoc, mlMat);
-		this.setUniform(sunLoc, sun);
+		this.setUniform(srcLoc, source);
 	}
 
 	public ModelMatrix getMlMat() {
@@ -72,12 +72,12 @@ public class SolarSystemShader extends Shader {
 		this.lightPosition = lightPosition;
 	}
 
-	public int getSun() {
-		return sun;
+	public int getSource() {
+		return source;
 	}
 
-	public void setSun(int sun) {
-		this.sun = sun;
+	public void setSource(int src) {
+		this.source = src;
 	}
 
 
