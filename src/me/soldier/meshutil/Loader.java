@@ -31,7 +31,7 @@ public class Loader {
 	public static Model createTexturedModelVAO(float[] pos, float[] textures) {
 		int vaoID = createVAO();
 		storeDataInAttributeList(0, 3, pos);
-		storeDataInAttributeList(3, 2, textures);
+		storeDataInAttributeList(2, 2, textures);
 		unbindVAO();
 		return new Model(vaoID, pos.length);
 	}
@@ -48,8 +48,16 @@ public class Loader {
 
 	public static int createGUIVAO(float[] pos) {
 		int vaoID = createVAO();
-		storeDataInAttributeList(0, 3, pos);
-		storeDataInAttributeList(3, 2, new float[] { 0, 1, 0, 0, 1, 1, 1, 0, 1, 1, 0, 0 });
+		storeDataInAttributeList(0, 2, pos);
+		storeDataInAttributeList(2, 2, new float[] { 0, 1, 0, 0, 1, 1, 1, 0, 1, 1, 0, 0 });
+		unbindVAO();
+		return vaoID;
+	}
+	
+	public static int createGUIVAO(float[] pos, float[] tex) {
+		int vaoID = createVAO();
+		storeDataInAttributeList(0, 2, pos);
+		storeDataInAttributeList(2, 2, tex);
 		unbindVAO();
 		return vaoID;
 	}

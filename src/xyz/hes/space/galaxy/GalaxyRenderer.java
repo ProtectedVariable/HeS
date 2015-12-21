@@ -89,6 +89,7 @@ public class GalaxyRenderer {
 		renderStarModel();
 		
 		gShader.stop();
+		glDisable(GL_CULL_FACE);
 	}
 	
 	private void renderStarModel() {
