@@ -1,11 +1,7 @@
 package xyz.hes.space;
 
 import me.soldier.math.*;
-import me.soldier.meshutil.*;
-import me.soldier.postprocess.*;
-
-import org.lwjgl.opengl.*;
-
+import me.soldier.postprocess.fx.*;
 import xyz.hes.core.*;
 import xyz.hes.space.galaxy.*;
 import xyz.hes.space.planets.*;
@@ -22,10 +18,8 @@ public class MasterRenderer {
 
 	private ProjectionMatrix perspective;
 	private ProjectionMatrix othographic;
-
-	private Framebuffer HDRfbo;
-	private PostShader hdrShader;
-	private int hdrQuad;
+	
+	private BloomFX bloomFX;
 
 	private float fov = 50;
 	private float aspect = -1f;
@@ -40,12 +34,8 @@ public class MasterRenderer {
 		this.galaxyRenderer = new GalaxyRenderer(this.perspective);
 		this.systemRenderer = new SolarSystemRenderer(this.perspective);
 		this.planetRenderer = new PlanetRender(this.perspective);
-
-		this.HDRfbo = new Framebuffer(Main.width, Main.height);
-		this.hdrShader = new PostShader();
-		float[] pos = { -1, 1, -1, -1, 1, -1, -1, 1, 1, -1, 1, 1 };
-		float[] tex = { 0, 1, 0, 0, 1, 0, 0, 1, 1, 0, 1, 1 };
-		this.hdrQuad = Loader.createGUIVAO(pos, tex);
+		
+		this.bloomFX = new BloomFX();
 	}
 
 	public void RenderUniverse(Camera camera, Universe u, Background b) {
@@ -54,21 +44,12 @@ public class MasterRenderer {
 	}
 
 	public void RenderGalaxy(Camera camera, Galaxy g, Background b) {
-		this.HDRfbo.bind();
-		GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
-		GL11.glEnable(GL11.GL_DEPTH_TEST);
+		this.bloomFX.getHDRFBO().bind();
+		this.bloomFX.prepare();
 		this.galaxyRenderer.renderGalaxy(camera, g);
-		this.HDRfbo.release();
-		this.hdrShader.start();
-		GL30.glBindVertexArray(this.hdrQuad);
-		GL13.glActiveTexture(GL13.GL_TEXTURE0);
-		GL11.glDisable(GL11.GL_DEPTH_TEST);
-		GL20.glEnableVertexAttribArray(0);
-		GL20.glEnableVertexAttribArray(2);
-		GL11.glBindTexture(GL11.GL_TEXTURE_2D, this.HDRfbo.getTexture());
-		GL11.glDrawArrays(GL11.GL_TRIANGLES, 0, 6);
-		GL30.glBindVertexArray(0);
-		this.hdrShader.stop();
+		this.bloomFX.getHDRFBO().release();
+		this.bloomFX.processBuffer(10*LOD.exp);
+		this.bloomFX.renderBlendBuffers();
 		this.galaxyRenderer.renderBackground(camera, b);
 	}
 

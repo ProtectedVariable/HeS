@@ -77,6 +77,12 @@ public abstract class Shader {
 		start();
 		glUniform4f(pLocation, value.x, value.y, value.z, value.w);
 	}
+	
+	public void setUniform(int pLocation, boolean value) {
+		start();
+		glUniform1i(pLocation, (value) ? 1 : 0);
+	}
+
 
 	public void setUniform(int pLocation, int value) {
 		start();

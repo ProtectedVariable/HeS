@@ -8,6 +8,7 @@
 - [x] Enemies basic name generation
 - [ ] Player profile
 - [x] galaxy basic rendering
+- [x] FX system implementation
 - [ ] Solar systems rendering
 - [ ] planet rendering
 - [ ] planet interaction/life

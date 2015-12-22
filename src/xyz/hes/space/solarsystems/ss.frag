@@ -1,6 +1,7 @@
 #version 330 core
 
-out vec4 outColor;
+layout (location = 0)out vec4 FragColor;
+layout (location = 1)out vec4 BrightColor;
 
 in TO_FRAG {
   vec3 normal;
@@ -11,14 +12,12 @@ uniform int source;
 
 void main()
 {
-  vec3 unitNormal = normalize(lightIn.normal);
-  vec3 unitLightVector = normalize(lightIn.toLight);
-  float nDl = dot(unitNormal, unitLightVector)+0.25;
-  float brightness = max(nDl, 0.1);
-  vec3 diffuse = vec3(1.0) * brightness;
-  if(source == 0) {
-    outColor = vec4(diffuse, 1.0) * vec4(1.0);
-  } else {
-    outColor = vec4(1.0);
-  }
+	if(source == 0) {
+		FragColor = vec4(20,20,0,20);
+	} else {
+		FragColor = vec4(200.0);
+	}
+	float brightness = dot(FragColor.rgb, vec3(0.2126, 0.7152, 0.0722));
+    if(brightness > 1.0)
+        BrightColor = vec4(FragColor.rgb, 1.0);
 }
