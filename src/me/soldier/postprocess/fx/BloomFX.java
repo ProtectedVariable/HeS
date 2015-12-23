@@ -1,24 +1,30 @@
 package me.soldier.postprocess.fx;
 
-import me.soldier.meshutil.*;
-import me.soldier.postprocess.*;
+import org.lwjgl.opengl.GL11;
+import org.lwjgl.opengl.GL13;
+import org.lwjgl.opengl.GL20;
+import org.lwjgl.opengl.GL30;
 
-import org.lwjgl.opengl.*;
-
-import xyz.hes.core.*;
+import me.soldier.meshutil.Loader;
+import me.soldier.postprocess.Framebuffer;
+import xyz.hes.core.Main;
 
 public class BloomFX {
 
+	/** Buffer storing the blur value at each pass */
 	private Framebuffer pingpongbuf1, pingpongbuf2;
+	/**Frambuffer splitting the bright values */
 	private HDRFramebuffer HDRFBO;
+	/** Shader containing the gaussian blur code */
 	private BlurShader blurShader;
+	/** Shader containing the texture blending code */
 	private BlendShader blendShader;
 	private int screenQuad;
 	
 	public BloomFX() {
-		this.pingpongbuf1 = new Framebuffer(Main.width, Main.height, false);
-		this.pingpongbuf2 = new Framebuffer(Main.width, Main.height, false);
-		this.HDRFBO = new HDRFramebuffer(Main.width, Main.height);
+		this.pingpongbuf1 = new Framebuffer(Main.pix_width, Main.pix_height, false);
+		this.pingpongbuf2 = new Framebuffer(Main.pix_width, Main.pix_height, false);
+		this.HDRFBO = new HDRFramebuffer(Main.pix_width, Main.pix_height);
 		this.blurShader = new BlurShader();
 		this.blendShader = new BlendShader();
 		float[] pos = { -1, 1, -1, -1, 1, -1, -1, 1, 1, -1, 1, 1 };
@@ -32,6 +38,9 @@ public class BloomFX {
 		GL20.glDrawBuffers(2, this.getHDRFBO().getAttachments());		
 	}
 	
+	/**
+	 * Render the bloomed scene
+	 */
 	public void renderBlendBuffers() {
 		this.blendShader.start();
 		GL13.glActiveTexture(GL13.GL_TEXTURE1);
@@ -39,11 +48,14 @@ public class BloomFX {
 		GL13.glActiveTexture(GL13.GL_TEXTURE0);
 		GL11.glBindTexture(GL11.GL_TEXTURE_2D, this.pingpongbuf1.getTexture());
 		this.blendShader.loadUniforms();
-		renderBuffer();
+		renderQuad();
 		this.blendShader.stop();
 	}
 	
-	public void renderBuffer() {
+	/**
+	 * Render a quad filling the screen
+	 */
+	public void renderQuad() {
 		GL30.glBindVertexArray(this.screenQuad);
 		GL11.glDisable(GL11.GL_DEPTH_TEST);
 		GL20.glEnableVertexAttribArray(0);
@@ -54,6 +66,10 @@ public class BloomFX {
 		GL30.glBindVertexArray(0);
 	}
 	
+	/**
+	 * Apply blur to the scene
+	 * @param amount number of pass
+	 */
 	public void processBuffer(int amount) {
 		boolean horizontal = true, first = true;
 		this.blurShader.start();
@@ -64,7 +80,7 @@ public class BloomFX {
 			fboH.bind();
 			this.blurShader.setUniform(blurShader.getUniformLocation("horizontal"), horizontal);
 			GL11.glBindTexture(GL11.GL_TEXTURE_2D, first?this.HDRFBO.getTexture().get(4):fboNH.getTexture());
-			renderBuffer();
+			renderQuad();
 			horizontal = !horizontal;
 			if(first)
 				first = false;

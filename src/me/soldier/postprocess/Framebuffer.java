@@ -31,7 +31,7 @@ public class Framebuffer {
 			glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, rbo);
 		}
 		if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE) {
-			System.err.println("Error: HDR Framebuffer isn't complete");
+			System.err.println("Error: Framebuffer isn't complete");
 		}
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	}

@@ -12,9 +12,11 @@ import org.lwjgl.opengl.*;
 
 public class Main {
 
-	// BASE
 	public static int width = 800;
 	public static int height = 450;
+	
+	public static int pix_width = 800;
+	public static int pix_height = 450;
 
 	public static boolean running = false;
 
@@ -47,7 +49,7 @@ public class Main {
 		}
 
 		glfwWindowHint(GLFW_RESIZABLE, GL_TRUE);
-		glfwWindowHint(GLFW_SAMPLES, 4);
+		glfwWindowHint(GLFW_SAMPLES, 1);
 
 		if (OS.indexOf("mac") >= 0) {
 			glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
@@ -60,6 +62,10 @@ public class Main {
 			System.err.println("Could not create GLFW window!");
 			return;
 		}
+		ByteBuffer FBW = BufferUtils.createByteBuffer(4), FBH = BufferUtils.createByteBuffer(4); 
+		glfwGetFramebufferSize(window, FBW, FBH);
+		pix_width = FBW.getInt(0);
+		pix_height = FBH.getInt(0);
 
 		InitWindow();
 		InitGL();
@@ -136,7 +142,7 @@ public class Main {
 		glEnable(GL20.GL_VERTEX_PROGRAM_POINT_SIZE);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE);
 		glEnable(GL13.GL_MULTISAMPLE);
-		glViewport(0, 0, width, height);
+		glViewport(0, 0, pix_width, pix_height);
 	}
 
 	private void InitWindow() {

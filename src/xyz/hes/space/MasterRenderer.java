@@ -1,12 +1,16 @@
 package xyz.hes.space;
 
-import me.soldier.math.*;
-import me.soldier.postprocess.fx.*;
-import xyz.hes.core.*;
-import xyz.hes.space.galaxy.*;
-import xyz.hes.space.planets.*;
-import xyz.hes.space.solarsystems.*;
-import xyz.hes.space.universe.*;
+import me.soldier.math.ProjectionMatrix;
+import me.soldier.postprocess.fx.BloomFX;
+import xyz.hes.core.Camera;
+import xyz.hes.core.Main;
+import xyz.hes.space.galaxy.Galaxy;
+import xyz.hes.space.galaxy.GalaxyRenderer;
+import xyz.hes.space.planets.Planet;
+import xyz.hes.space.planets.PlanetRender;
+import xyz.hes.space.solarsystems.SolarSystem;
+import xyz.hes.space.solarsystems.SolarSystemRenderer;
+import xyz.hes.space.universe.Universe;
 
 public class MasterRenderer {
 
@@ -34,7 +38,7 @@ public class MasterRenderer {
 		this.galaxyRenderer = new GalaxyRenderer(this.perspective);
 		this.systemRenderer = new SolarSystemRenderer(this.perspective);
 		this.planetRenderer = new PlanetRender(this.perspective);
-		
+
 		this.bloomFX = new BloomFX();
 	}
 
