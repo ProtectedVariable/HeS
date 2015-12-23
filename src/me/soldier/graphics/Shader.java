@@ -73,6 +73,11 @@ public abstract class Shader {
 		glUniform3f(pLocation, value.x, value.y, value.z);
 	}
 	
+	public void setUniform(int pLocation, Vector2f value) {
+		start();
+		glUniform2f(pLocation, value.x, value.y);
+	}
+	
 	public void setUniform(int pLocation, Vector4f value) {
 		start();
 		glUniform4f(pLocation, value.x, value.y, value.z, value.w);

@@ -20,14 +20,14 @@ public class Loader {
 		unbindVAO();
 		return new Model(vaoID, indices.length);
 	}
-	
+
 	public static Model createModelVAO(float[] pos) {
 		int vaoID = createVAO();
 		storeDataInAttributeList(0, 3, pos);
 		unbindVAO();
 		return new Model(vaoID, pos.length);
 	}
-	
+
 	public static Model createTexturedModelVAO(float[] pos, float[] textures) {
 		int vaoID = createVAO();
 		storeDataInAttributeList(0, 3, pos);
@@ -35,7 +35,23 @@ public class Loader {
 		unbindVAO();
 		return new Model(vaoID, pos.length);
 	}
-	
+
+	/**
+	 * Creates a VAO with at attribute 0 the positions and
+	 * at attribute 1 the texture coords
+	 * 
+	 * @param pos
+	 * @param texCoords
+	 * @return
+	 */
+	public static int createTextVAO(float[] pos, float[] texCoords) {
+		int vaoID = createVAO();
+		storeDataInAttributeList(0, 2, pos);
+		storeDataInAttributeList(1, 2, texCoords);
+		unbindVAO();
+		return vaoID;
+	}
+
 	public static Model createModelVAO(float[] pos, float[] normals, int[] indices) {
 		int vaoID = createVAO();
 		storeDataInAttributeList(0, 3, pos);
@@ -45,7 +61,6 @@ public class Loader {
 		return new Model(vaoID, indices.length);
 	}
 
-
 	public static int createGUIVAO(float[] pos) {
 		int vaoID = createVAO();
 		storeDataInAttributeList(0, 2, pos);
@@ -53,19 +68,11 @@ public class Loader {
 		unbindVAO();
 		return vaoID;
 	}
-	
+
 	public static int createGUIVAO(float[] pos, float[] tex) {
 		int vaoID = createVAO();
 		storeDataInAttributeList(0, 2, pos);
 		storeDataInAttributeList(2, 2, tex);
-		unbindVAO();
-		return vaoID;
-	}
-	
-	public static int createTextVAO(float[] pos, float[] texCoords) {
-		int vaoID = createVAO();
-		storeDataInAttributeList(0, 3, pos);
-		storeDataInAttributeList(3, 2, texCoords);
 		unbindVAO();
 		return vaoID;
 	}
@@ -103,51 +110,58 @@ public class Loader {
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, vboID);
 		glBufferData(GL_ELEMENT_ARRAY_BUFFER, VBOUtil.createIntBuffer(indices), GL_STATIC_DRAW);
 	}
-	
-//	/**
-//	 * 
-//	 * @param textureFiles Order = R_L_T_B_BA_F
-//	 * @return
-//	 */
-//	public static int loadCubeMap(String[] textureFiles) {
-//		int texID = glGenTextures();
-//		GL13.glActiveTexture(GL13.GL_TEXTURE0);
-//		
-//		glBindTexture(GL13.GL_TEXTURE_CUBE_MAP, texID);
-//		for(int i = 0; i < textureFiles.length;i++) {
-//			TextureData data = decodeTextureFile(textureFiles[i]+".png");
-//			glTexImage2D(GL13.GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, GL_RGBA, data.getWidth(), data.getHeight(), 0, GL_RGBA, GL_UNSIGNED_BYTE, data.getBuffer());
-//		}
-//		glTexParameteri(GL13.GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-//		glTexParameteri(GL13.GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-//		GL11.glTexParameteri(GL13.GL_TEXTURE_CUBE_MAP, GL11.GL_TEXTURE_WRAP_S, GL12.GL_CLAMP_TO_EDGE);
-//		GL11.glTexParameteri(GL13.GL_TEXTURE_CUBE_MAP, GL11.GL_TEXTURE_WRAP_T, GL12.GL_CLAMP_TO_EDGE);
-//		textures.add(texID);
-//		glBindTexture(GL13.GL_TEXTURE_CUBE_MAP, 0);
-//		return texID;
-//	}
 
-//	private static TextureData decodeTextureFile(String fileName) {
-//		int width = 0;
-//		int height = 0;
-//		ByteBuffer buffer = null;
-//		try {
-//			FileInputStream in = new FileInputStream(fileName);
-//			PNGDecoder decoder = new PNGDecoder(in);
-//			width = decoder.getWidth();
-//			height = decoder.getHeight();
-//			buffer = ByteBuffer.allocateDirect(4 * width * height);
-//			decoder.decode(buffer, width * 4, Format.RGBA);
-//			buffer.flip();
-//			in.close();
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//			System.err.println("Tried to load texture " + fileName + ", didn't work");
-//			System.exit(-1);
-//		}
-//		return new TextureData(buffer, width, height);
-//	}
-	
+	// /**
+	// *
+	// * @param textureFiles Order = R_L_T_B_BA_F
+	// * @return
+	// */
+	// public static int loadCubeMap(String[] textureFiles) {
+	// int texID = glGenTextures();
+	// GL13.glActiveTexture(GL13.GL_TEXTURE0);
+	//
+	// glBindTexture(GL13.GL_TEXTURE_CUBE_MAP, texID);
+	// for(int i = 0; i < textureFiles.length;i++) {
+	// TextureData data = decodeTextureFile(textureFiles[i]+".png");
+	// glTexImage2D(GL13.GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, GL_RGBA,
+	// data.getWidth(), data.getHeight(), 0, GL_RGBA, GL_UNSIGNED_BYTE,
+	// data.getBuffer());
+	// }
+	// glTexParameteri(GL13.GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER,
+	// GL_LINEAR);
+	// glTexParameteri(GL13.GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER,
+	// GL_LINEAR);
+	// GL11.glTexParameteri(GL13.GL_TEXTURE_CUBE_MAP, GL11.GL_TEXTURE_WRAP_S,
+	// GL12.GL_CLAMP_TO_EDGE);
+	// GL11.glTexParameteri(GL13.GL_TEXTURE_CUBE_MAP, GL11.GL_TEXTURE_WRAP_T,
+	// GL12.GL_CLAMP_TO_EDGE);
+	// textures.add(texID);
+	// glBindTexture(GL13.GL_TEXTURE_CUBE_MAP, 0);
+	// return texID;
+	// }
+
+	// private static TextureData decodeTextureFile(String fileName) {
+	// int width = 0;
+	// int height = 0;
+	// ByteBuffer buffer = null;
+	// try {
+	// FileInputStream in = new FileInputStream(fileName);
+	// PNGDecoder decoder = new PNGDecoder(in);
+	// width = decoder.getWidth();
+	// height = decoder.getHeight();
+	// buffer = ByteBuffer.allocateDirect(4 * width * height);
+	// decoder.decode(buffer, width * 4, Format.RGBA);
+	// buffer.flip();
+	// in.close();
+	// } catch (Exception e) {
+	// e.printStackTrace();
+	// System.err.println("Tried to load texture " + fileName +
+	// ", didn't work");
+	// System.exit(-1);
+	// }
+	// return new TextureData(buffer, width, height);
+	// }
+
 	private static void unbindVAO() {
 		glBindVertexArray(0);
 	}
@@ -157,7 +171,7 @@ public class Loader {
 			glDeleteVertexArrays(i);
 		for (int i : vbos)
 			glDeleteBuffers(i);
-		for(int i : textures)
+		for (int i : textures)
 			glDeleteTextures(i);
 	}
 

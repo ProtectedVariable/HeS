@@ -2,9 +2,14 @@ package xyz.hes.core;
 
 import static org.lwjgl.glfw.GLFW.*;
 
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import fontMeshCreator.*;
+import fontRendering.*;
+import me.soldier.graphics.*;
+import me.soldier.math.*;
 import me.soldier.util.FileReader;
 import me.soldier.util.MousePicker;
 import xyz.hes.players.Player;
@@ -26,8 +31,11 @@ public class Game {
 	private List<Player> enemies;
 	private MousePicker mousePicker;
 	//Space backgrounds
-	Background universeBack;
-	Background galaxyBack;
+	private Background universeBack;
+	private Background galaxyBack;
+	//Text
+	FontType font;
+	GUIText text;
 
 	public Game() {
 		this.renderer = new MasterRenderer(LevelOfDetail.DEBUG);
@@ -50,7 +58,10 @@ public class Game {
 			System.out.println(name);
 			this.enemies.add(new Player(new ArrayList<Galaxy>(), new ArrayList<Planet>(), name));
 		}
-
+		TextMaster.init();
+		font = new FontType(new Texture("res/fonts/ethno.png").getId(), new File("src/res/fonts/ethno.fnt"));
+		text = new GUIText("this is a test text!", 5, font, new Vector2f(0, 0), 1, true);
+		text.setColour(1, 1, 1);
 		mousePicker = new MousePicker(pov.vw_matrix, this.renderer.getPerspective());
 	}
 
@@ -69,6 +80,7 @@ public class Game {
 		} else {
 			throw new IllegalStateException("Observed object isn't a renderable object");
 		}
+		TextMaster.render();
 	}
 
 	public void Update() {
@@ -115,5 +127,9 @@ public class Game {
 		if (Input.isKeyDown(GLFW_KEY_DOWN)) {
 			pov.position.y -= 1.2f;
 		}
+	}
+	
+	public void onGameClosing() {
+		TextMaster.cleanUp();
 	}
 }
