@@ -62,10 +62,7 @@ public class Texture {
 			}
 		}
 
-		buffer.flip(); // FOR THE LOVE OF GOD DO NOT FORGET THIS
-		// You now have a ByteBuffer filled with the color data of each pixel.
-		// Now just create a texture ID and bind it. Then you can load it using
-		// whatever OpenGL method you want, for example:
+		buffer.flip();
 
 		int textureID = glGenTextures(); // Generate texture ID
 		glBindTexture(GL_TEXTURE_2D, textureID); // Bind texture ID

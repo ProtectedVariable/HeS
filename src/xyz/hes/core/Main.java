@@ -12,8 +12,8 @@ import org.lwjgl.opengl.*;
 
 public class Main {
 
-	public static int width = 800;
-	public static int height = 450;
+	public static int width = 1200;
+	public static int height = width*9/16;
 	
 	public static int pix_width = 800;
 	public static int pix_height = 450;

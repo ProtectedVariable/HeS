@@ -4,3 +4,7 @@ WIP
 Version #221215
 - Added FX system
 - Added Bloom to galaxy rendering
+
+Version #231215
+- Added text support
+!Does not work on Mac OSX (prbly java bug)

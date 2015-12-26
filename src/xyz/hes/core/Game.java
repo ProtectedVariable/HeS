@@ -59,9 +59,9 @@ public class Game {
 			this.enemies.add(new Player(new ArrayList<Galaxy>(), new ArrayList<Planet>(), name));
 		}
 		TextMaster.init();
-		font = new FontType(new Texture("res/fonts/ethno.png").getId(), new File("src/res/fonts/ethno.fnt"));
-		text = new GUIText("this is a test text!", 5, font, new Vector2f(0, 0), 1, true);
-		text.setColour(1, 1, 1);
+//		font = new FontType(new Texture("res/fonts/ethno.png").getId(), new File("src/res/fonts/ethno.fnt"));
+//		text = new GUIText("this is a test text!", 5, font, new Vector2f(0, 0), 1, true);
+//		text.setColour(1, 1, 1);
 		mousePicker = new MousePicker(pov.vw_matrix, this.renderer.getPerspective());
 	}
 
