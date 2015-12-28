@@ -2,12 +2,13 @@ package me.soldier.meshutil;
 
 import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.opengl.GL15.*;
-import static org.lwjgl.opengl.GL20.*;
+import static org.lwjgl.opengl.GL20.glVertexAttribPointer;
 import static org.lwjgl.opengl.GL30.*;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
-import me.soldier.graphics.*;
+import me.soldier.graphics.VBOUtil;
 
 public class Loader {
 

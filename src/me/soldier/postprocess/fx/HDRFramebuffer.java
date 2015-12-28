@@ -3,10 +3,11 @@ package me.soldier.postprocess.fx;
 import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.opengl.GL30.*;
 
-import java.nio.*;
+import java.nio.ByteBuffer;
 
-import org.lwjgl.*;
-import org.lwjgl.opengl.*;
+import org.lwjgl.BufferUtils;
+import org.lwjgl.opengl.GL12;
+import org.lwjgl.opengl.GL30;
 
 public class HDRFramebuffer {
 

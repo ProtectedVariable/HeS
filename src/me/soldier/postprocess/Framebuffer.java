@@ -3,7 +3,7 @@ package me.soldier.postprocess;
 import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.opengl.GL30.*;
 
-import org.lwjgl.opengl.*;
+import org.lwjgl.opengl.GL12;
 
 public class Framebuffer {
 

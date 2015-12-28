@@ -1,6 +1,6 @@
 package me.soldier.meshutil;
 
-import me.soldier.graphics.*;
+import me.soldier.graphics.Texture;
 
 public class Material {
 

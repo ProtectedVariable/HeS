@@ -1,6 +1,6 @@
 package me.soldier.graphics;
 
-import me.soldier.math.*;
+import me.soldier.math.Vector3f;
 
 public class Plane {
 

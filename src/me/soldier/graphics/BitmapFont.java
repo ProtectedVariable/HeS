@@ -1,9 +1,11 @@
 package me.soldier.graphics;
 
 import static org.lwjgl.opengl.GL11.*;
-import me.soldier.math.*;
 
-import org.lwjgl.opengl.*;
+import org.lwjgl.opengl.GL13;
+
+import me.soldier.math.Vector2f;
+import me.soldier.math.Vector3f;
 
 public class BitmapFont {
 

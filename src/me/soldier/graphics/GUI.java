@@ -1,10 +1,12 @@
 package me.soldier.graphics;
 
-import org.lwjgl.opengl.*;
-
-import xyz.hes.core.Main;
-import me.soldier.math.*;
 import static org.lwjgl.opengl.GL11.*;
+
+import org.lwjgl.opengl.GL13;
+
+import me.soldier.math.ProjectionMatrix;
+import me.soldier.math.Vector2f;
+import xyz.hes.core.Main;
 
 public class GUI {
 

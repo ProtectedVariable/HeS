@@ -1,7 +1,8 @@
 package fontRendering;
 
-import me.soldier.graphics.*;
-import me.soldier.math.*;
+import me.soldier.graphics.Shader;
+import me.soldier.math.Vector2f;
+import me.soldier.math.Vector3f;
 
 public class FontShader extends Shader {
 

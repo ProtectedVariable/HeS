@@ -1,10 +1,15 @@
 package fontRendering;
 
-import java.util.*;
+import java.util.List;
+import java.util.Map;
 
-import org.lwjgl.opengl.*;
+import org.lwjgl.opengl.GL11;
+import org.lwjgl.opengl.GL13;
+import org.lwjgl.opengl.GL20;
+import org.lwjgl.opengl.GL30;
 
-import fontMeshCreator.*;
+import fontMeshCreator.FontType;
+import fontMeshCreator.GUIText;
 
 public class FontRenderer {
 

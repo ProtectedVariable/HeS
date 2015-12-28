@@ -1,8 +1,13 @@
 package me.soldier.meshutil;
 
-import java.io.*;
-import java.util.*;
-import me.soldier.math.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+
+import me.soldier.math.Vector2f;
+import me.soldier.math.Vector3f;
 
 public class OBJLoader {
 

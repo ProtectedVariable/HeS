@@ -1,6 +1,7 @@
 package xyz.hes.core;
 
-import org.lwjgl.glfw.*;
+import org.lwjgl.glfw.GLFW;
+import org.lwjgl.glfw.GLFWKeyCallback;
 
 public class Input extends GLFWKeyCallback {
 

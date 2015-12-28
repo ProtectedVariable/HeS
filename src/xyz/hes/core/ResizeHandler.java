@@ -1,7 +1,7 @@
 package xyz.hes.core;
 
-import org.lwjgl.glfw.*;
-import org.lwjgl.opengl.*;
+import org.lwjgl.glfw.GLFWWindowSizeCallback;
+import org.lwjgl.opengl.GL11;
 
 public class ResizeHandler extends GLFWWindowSizeCallback {
 

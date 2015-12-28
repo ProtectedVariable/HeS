@@ -1,9 +1,14 @@
 package fontRendering;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
-import me.soldier.meshutil.*;
-import fontMeshCreator.*;
+import fontMeshCreator.FontType;
+import fontMeshCreator.GUIText;
+import fontMeshCreator.TextMeshData;
+import me.soldier.meshutil.Loader;
 
 public class TextMaster {
 

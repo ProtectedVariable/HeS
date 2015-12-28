@@ -1,6 +1,7 @@
 package me.soldier.graphics;
 
-import me.soldier.math.*;
+import me.soldier.math.ProjectionMatrix;
+import me.soldier.math.Vector3f;
 import xyz.hes.core.Main;
 
 public class TextShader extends Shader {

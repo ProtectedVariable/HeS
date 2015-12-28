@@ -1,7 +1,7 @@
 package me.soldier.graphics;
 
 import static org.lwjgl.opengl.GL11.*;
-import static org.lwjgl.opengl.GL30.*;
+import static org.lwjgl.opengl.GL30.glGenerateMipmap;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;

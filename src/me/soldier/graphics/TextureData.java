@@ -1,6 +1,6 @@
 package me.soldier.graphics;
 
-import java.nio.*;
+import java.nio.ByteBuffer;
 
 public class TextureData {
 

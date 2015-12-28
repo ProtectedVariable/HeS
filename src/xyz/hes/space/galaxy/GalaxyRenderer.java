@@ -2,7 +2,7 @@ package xyz.hes.space.galaxy;
 
 import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.opengl.GL20.*;
-import static org.lwjgl.opengl.GL30.*;
+import static org.lwjgl.opengl.GL30.glBindVertexArray;
 
 import org.lwjgl.opengl.GL13;
 

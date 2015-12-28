@@ -1,6 +1,7 @@
 package xyz.hes.core;
 
-import me.soldier.math.*;
+import me.soldier.math.Vector3f;
+import me.soldier.math.ViewMatrix;
 
 /**
  * @author Osoldier

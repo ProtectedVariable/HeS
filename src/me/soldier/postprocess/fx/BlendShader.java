@@ -1,6 +1,6 @@
 package me.soldier.postprocess.fx;
 
-import me.soldier.graphics.*;
+import me.soldier.graphics.Shader;
 
 public class BlendShader extends Shader{
 

@@ -2,14 +2,12 @@ package xyz.hes.core;
 
 import static org.lwjgl.glfw.GLFW.*;
 
-import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import fontMeshCreator.*;
-import fontRendering.*;
-import me.soldier.graphics.*;
-import me.soldier.math.*;
+import fontMeshCreator.FontType;
+import fontMeshCreator.GUIText;
+import fontRendering.TextMaster;
 import me.soldier.util.FileReader;
 import me.soldier.util.MousePicker;
 import xyz.hes.players.Player;

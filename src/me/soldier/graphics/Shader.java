@@ -1,12 +1,17 @@
 package me.soldier.graphics;
 
-import static org.lwjgl.opengl.GL11.*;
+import static org.lwjgl.opengl.GL11.GL_FALSE;
 import static org.lwjgl.opengl.GL20.*;
-import static org.lwjgl.opengl.GL32.*;
+import static org.lwjgl.opengl.GL32.GL_GEOMETRY_SHADER;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 
-import me.soldier.math.*;
+import me.soldier.math.Matrix4f;
+import me.soldier.math.Vector2f;
+import me.soldier.math.Vector3f;
+import me.soldier.math.Vector4f;
 
 /**
  * @author Osoldier

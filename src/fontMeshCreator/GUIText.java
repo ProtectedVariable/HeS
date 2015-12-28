@@ -1,7 +1,8 @@
 package fontMeshCreator;
 
-import fontRendering.*;
-import me.soldier.math.*;
+import fontRendering.TextMaster;
+import me.soldier.math.Vector2f;
+import me.soldier.math.Vector3f;
 
 /**
  * Represents a piece of text in the game.
