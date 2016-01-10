@@ -19,8 +19,8 @@ public class Texture {
 	
 	private static final int BYTES_PER_PIXEL = 4;// 3 for RGB, 4 for RGBA
 	
-	public Texture(String pLocation) {
-		this.id = loadTexture(loadImage(pLocation));
+	public Texture(String pLocation, float bias) {
+		this.id = loadTexture(loadImage(pLocation), bias);
 	}
 	
 	public Texture(int id) {
@@ -44,7 +44,7 @@ public class Texture {
 		glBindTexture(GL_TEXTURE_2D, GL13.GL_TEXTURE0);
 	}
 
-	private int loadTexture(BufferedImage image) {
+	private int loadTexture(BufferedImage image, float bias) {
 
 		int[] pixels = new int[image.getWidth() * image.getHeight()];
 		image.getRGB(0, 0, image.getWidth(), image.getHeight(), pixels, 0, image.getWidth());
@@ -82,7 +82,7 @@ public class Texture {
 
 		glGenerateMipmap(GL_TEXTURE_2D);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
-		glTexParameterf(GL_TEXTURE_2D, GL14.GL_TEXTURE_LOD_BIAS, -1.5f);
+		glTexParameterf(GL_TEXTURE_2D, GL14.GL_TEXTURE_LOD_BIAS, bias);
 		// Return the texture ID so we can bind it later again
 		return textureID;
 	}

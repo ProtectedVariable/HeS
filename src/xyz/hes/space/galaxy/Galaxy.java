@@ -1,12 +1,7 @@
 package xyz.hes.space.galaxy;
 
-import java.util.LinkedList;
-import java.util.List;
-
 import me.soldier.math.Vector3f;
 import me.soldier.meshutil.Loader;
-import me.soldier.meshutil.Model;
-import xyz.hes.space.MasterRenderer;
 import xyz.hes.space.SpaceProperty;
 import xyz.hes.space.solarsystems.SolarSystem;
 
@@ -14,63 +9,25 @@ public class Galaxy extends SpaceProperty {
 
 	private SolarSystem[] systems;
 	private Vector3f position;
-	private Vector3f color = new Vector3f((float)Math.random(), (float)Math.random(), (float)Math.random());
+	private Vector3f color = new Vector3f((float) Math.random(), (float) Math.random(), (float) Math.random());
 
-	private float[] vertices;
-	private Model model;
-	private float rx,ry,rz;
+	private static int vao;
+
+	static {
+		float[] texCoords = { 0, 0, 1, 0, 1, 1, 1, 1, 0, 1, 0, 0 };
+		float[] coords = { -0.5f, -0.5f, 0.5f, -0.5f, 0.5f, 0.5f, 0.5f, 0.5f, -0.5f, 0.5f, -0.5f, -0.5f };
+		vao = Loader.createGUIVAO(coords, texCoords);
+	}
+
+	private float rx, ry, rz;
 	public boolean MouseHover = false;
 
-	
 	public Galaxy(int size) {
-		systems = new SolarSystem[size/3];
+		systems = new SolarSystem[size / 3];
 		for (int i = 0; i < systems.length; i++) {
 			systems[i] = new SolarSystem((int) (Math.random() * 9 + 1));
 		}
 		this.setPosition(new Vector3f((float) (Math.random() - 0.5) * 400, (float) (Math.random() - 0.5) * 400, -100));
-		defineVertices();
-	}
-
-	/**
-	 * Placeholder
-	 */
-	private void defineVertices() {
-		List<Float> vert = new LinkedList<Float>();
-		float A, B, N;
-		A = 15;
-		B = (float) (Math.random()*0.5+0.5);
-		N = (float) Math.round((Math.random()+2)*6);
-		for (int i = 0; i < 360; i++) {
-			float theta = (float) Math.toRadians(i);
-			float value = (float) (A / (Math.log(B*Math.tan(theta / N))));
-			//Standard Path
-			vert.add((float) (value * Math.cos(theta)));
-			vert.add((float) (value * Math.sin(theta)));
-			vert.add(0f);
-			vert.add((float) (-value * Math.cos(theta)));
-			vert.add((float) (-value * Math.sin(theta)));
-			vert.add(0f);
-			//Random elements
-			for(int j = 0; j < 2*MasterRenderer.LOD.getExposant();j++) {
-				vert.add((float) (-value * Math.cos(theta)+Math.random()));
-				vert.add((float) (-value * Math.sin(theta)+Math.random()));
-				vert.add(0f);
-				vert.add((float) (value * Math.cos(theta)+Math.random()));
-				vert.add((float) (value * Math.sin(theta)+Math.random()));
-				vert.add(0f);
-			}
-		}
-		vertices = new float[vert.size()];
-		for (int i = 0; i < vert.size(); i++) {
-			vertices[i] = vert.get(i);
-		}
-		model = (Loader.createModelVAO(vertices));
-		this.setRx((float)(Math.random()+0.5)*180);
-		this.setRz((float)Math.random()*60);
-	}
-
-	public float[] getVertices() {
-		return vertices;
 	}
 
 	public SolarSystem[] getSystems() {
@@ -95,8 +52,8 @@ public class Galaxy extends SpaceProperty {
 		return color;
 	}
 
-	public Model getModel() {
-		return model;
+	public static int getVAOID() {
+		return vao;
 	}
 
 	public float getRx() {

@@ -1,10 +1,16 @@
 WIP
 (No previous records)
 
-Version #221215
+Version #0.0.1
 - Added FX system
 - Added Bloom to galaxy rendering
 
-Version #231215
+Version #0.0.2
 - Added text support
 !Does not work on Mac OSX (prbly java bug)
+
+Version #0.0.3
+- Texture now supported on Mac OSX with java 8 (-Djava.awt.headless=true)
+- Rendering based on textures
+- Started to change galaxy rendering (textured)
+- Implemented menu system

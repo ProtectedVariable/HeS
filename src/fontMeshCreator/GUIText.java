@@ -28,8 +28,8 @@ public class GUIText {
 	private boolean centerText = false;
 
 	/**
-	 * Creates a new text, loads the text's quads into a VAO, and adds the text
-	 * to the screen.
+	 * Creates a new text, loads the text's quads into a VAO, <del>and adds the text
+	 * to the screen.</del>
 	 * 
 	 * @param text
 	 *            - the text.
@@ -60,8 +60,7 @@ public class GUIText {
 		this.position = position;
 		this.lineMaxSize = maxLineLength;
 		this.centerText = centered;
-		TextMaster.loadText(this);
-		// load text
+		//TextMaster.loadText(this);
 	}
 
 	/**
@@ -117,6 +116,10 @@ public class GUIText {
 	 */
 	public Vector2f getPosition() {
 		return position;
+	}
+	
+	public void setPosition(Vector2f v2) {
+		this.position = v2;
 	}
 
 	/**

@@ -2,14 +2,16 @@ package xyz.hes.core;
 
 import static org.lwjgl.glfw.GLFW.*;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 import fontMeshCreator.FontType;
-import fontMeshCreator.GUIText;
 import fontRendering.TextMaster;
+import me.soldier.graphics.Texture;
 import me.soldier.util.FileReader;
 import me.soldier.util.MousePicker;
+import xyz.hes.core.menus.MainMenu;
 import xyz.hes.players.Player;
 import xyz.hes.space.Background;
 import xyz.hes.space.MasterRenderer;
@@ -32,10 +34,15 @@ public class Game {
 	private Background universeBack;
 	private Background galaxyBack;
 	//Text
-	FontType font;
-	GUIText text;
+	public static FontType font;
+	//Menus
+	private MainMenu mainMenu;
 
 	public Game() {
+		
+		TextMaster.init();
+		font = new FontType(new Texture("res/fonts/ethno.png", 0).getId(), new File("src/res/fonts/ethno.fnt"));
+		
 		this.renderer = new MasterRenderer(LevelOfDetail.DEBUG);
 		this.universe = new Universe(10);
 		this.observed = this.universe;
@@ -43,8 +50,8 @@ public class Game {
 
 		this.enemies = new ArrayList<Player>();
 		
-		this.universeBack = new Background(500, 500);
-		this.galaxyBack = new Background(300, 100);
+		this.universeBack = new Background(200, 500);
+		this.galaxyBack = new Background(100, 100);
 
 		List<String> f = FileReader.readFile(LANG_PATH + "E_N1.txt");
 		List<String> s = FileReader.readFile(LANG_PATH + "E_N2.txt");
@@ -56,11 +63,8 @@ public class Game {
 			System.out.println(name);
 			this.enemies.add(new Player(new ArrayList<Galaxy>(), new ArrayList<Planet>(), name));
 		}
-		TextMaster.init();
-//		font = new FontType(new Texture("res/fonts/ethno.png").getId(), new File("src/res/fonts/ethno.fnt"));
-//		text = new GUIText("this is a test text!", 5, font, new Vector2f(0, 0), 1, true);
-//		text.setColour(1, 1, 1);
 		mousePicker = new MousePicker(pov.vw_matrix, this.renderer.getPerspective());
+		mainMenu = new MainMenu();
 	}
 
 	public void Render() {
@@ -78,11 +82,13 @@ public class Game {
 		} else {
 			throw new IllegalStateException("Observed object isn't a renderable object");
 		}
+		//renderer.renderMenu(mainMenu);
 		TextMaster.render();
 	}
 
 	public void Update() {
 		mousePicker.Update(Main.mouseX, Main.mouseY);
+		mainMenu.Update();
 		if (observed instanceof Universe) {
 			UpdateUniverse();
 		} else if (observed instanceof Galaxy) {
@@ -98,8 +104,9 @@ public class Game {
 	
 	private void UpdateUniverse() {
 		universeBack.Update();
-		if ((pov.position.z > -20 && ScrollHandler.getdY() < 0) || (pov.position.z < 330 && ScrollHandler.getdY() > 0)) {
-			pov.position.z += ScrollHandler.getdY();
+		
+		if (330-ScrollHandler.getY() > -20 && 30-ScrollHandler.getY() < 330) {
+			pov.position.z = 330-ScrollHandler.getY();
 		}
 		
 		for (int i = 0; i < universe.getGalaxies().length; i++) {

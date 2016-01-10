@@ -4,7 +4,7 @@ import me.soldier.graphics.Texture;
 
 public class Material {
 
-	public final static Material GOLD = new Material(new Texture("res/gold.png"), 10, 1);
+	public final static Material GOLD = new Material(new Texture("res/gold.png", -1.5f), 10, 1);
 	
 	Texture tex;
 	float shineDamper;

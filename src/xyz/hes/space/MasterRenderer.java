@@ -1,9 +1,11 @@
 package xyz.hes.space;
 
 import me.soldier.math.ProjectionMatrix;
+import me.soldier.menu.MenuRenderer;
 import me.soldier.postprocess.fx.BloomFX;
 import xyz.hes.core.Camera;
 import xyz.hes.core.Main;
+import xyz.hes.core.menus.MainMenu;
 import xyz.hes.space.galaxy.Galaxy;
 import xyz.hes.space.galaxy.GalaxyRenderer;
 import xyz.hes.space.planets.Planet;
@@ -19,6 +21,7 @@ public class MasterRenderer {
 	private GalaxyRenderer galaxyRenderer;
 	private SolarSystemRenderer systemRenderer;
 	private PlanetRender planetRenderer;
+	private MenuRenderer menuRenderer;
 
 	private ProjectionMatrix perspective;
 	private ProjectionMatrix othographic;
@@ -38,23 +41,24 @@ public class MasterRenderer {
 		this.galaxyRenderer = new GalaxyRenderer(this.perspective);
 		this.systemRenderer = new SolarSystemRenderer(this.perspective);
 		this.planetRenderer = new PlanetRender(this.perspective);
+		this.menuRenderer = new MenuRenderer();
 
 		this.bloomFX = new BloomFX();
 	}
 
 	public void RenderUniverse(Camera camera, Universe u, Background b) {
-		this.galaxyRenderer.renderGalaxies(camera, u.getGalaxies());
 		this.galaxyRenderer.renderBackground(camera, b);
+		this.galaxyRenderer.renderGalaxies(camera, u.getGalaxies());
 	}
 
 	public void RenderGalaxy(Camera camera, Galaxy g, Background b) {
 		this.bloomFX.getHDRFBO().bind();
 		this.bloomFX.prepare();
+		this.galaxyRenderer.renderBackground(camera, b);
 		this.galaxyRenderer.renderGalaxy(camera, g);
 		this.bloomFX.getHDRFBO().release();
 		this.bloomFX.processBuffer(10*LOD.exp);
 		this.bloomFX.renderBlendBuffers();
-		this.galaxyRenderer.renderBackground(camera, b);
 	}
 
 	public void RenderSystem(Camera camera, SolarSystem system) {
@@ -63,6 +67,10 @@ public class MasterRenderer {
 
 	public void RenderPlanet(Camera camera, Planet p) {
 		this.planetRenderer.renderPlanet(camera, p);
+	}
+	
+	public void renderMenu(MainMenu m) {
+		this.menuRenderer.renderMenu(m);
 	}
 
 	public LevelOfDetail getLOD() {

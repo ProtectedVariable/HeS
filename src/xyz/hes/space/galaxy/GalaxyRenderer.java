@@ -6,11 +6,12 @@ import static org.lwjgl.opengl.GL30.glBindVertexArray;
 
 import org.lwjgl.opengl.GL13;
 
+import me.soldier.graphics.Texture;
 import me.soldier.math.ProjectionMatrix;
 import me.soldier.math.Vector3f;
 import xyz.hes.core.Camera;
 import xyz.hes.space.Background;
-import xyz.hes.space.ShootingStar;
+import xyz.hes.space.PointShader;
 import xyz.hes.space.solarsystems.SolarSystem;
 import xyz.hes.space.solarsystems.SolarSystemShader;
 import xyz.hes.space.solarsystems.Star;
@@ -19,45 +20,53 @@ public class GalaxyRenderer {
 
 	private GalaxyShader gShader;
 	private SolarSystemShader sShader;
+	private PointShader pShader;
 
 	private ProjectionMatrix pr_mat;
-	//private Texture tex;
+	private Texture pointTexture;
+	private Texture galaxyTexture;
 
 	public GalaxyRenderer(ProjectionMatrix pr) {
 		this.pr_mat = pr;
 		gShader = new GalaxyShader();
 		sShader = new SolarSystemShader();
-		//tex = new Texture("res/particle.png");
+		pShader = new PointShader();
+		pointTexture = new Texture("res/particle.png", 0);
+		this.galaxyTexture = new Texture("res/galaxy.png", -1.5f);
 	}
 
 	public void renderGalaxies(Camera camera, Galaxy[] galaxies) {
-		glBlendFunc(GL_SRC_ALPHA, GL_ONE);
+		glEnable(GL_DEPTH_TEST);
+		glDepthFunc(GL_LEQUAL);
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE); 
+		glDisable(GL_CULL_FACE);
+
+		GL13.glActiveTexture(GL13.GL_TEXTURE0);
+		galaxyTexture.bind();
+		
 		gShader.setPr_mat(this.getPr_mat());
 		gShader.setVw_mat(camera.vw_matrix);
-		GL13.glActiveTexture(GL13.GL_TEXTURE0);
-		//tex.bind();
 		gShader.start();
 		gShader.loadOnceUniforms();
+		
+		glBindVertexArray(Galaxy.getVAOID());
+		glEnableVertexAttribArray(0);
+		glEnableVertexAttribArray(2);
 		for (int i = 0; i < galaxies.length; i++) {
 			Galaxy galaxy = galaxies[i];
-			glBindVertexArray(galaxy.getModel().getVaoID());
-			glEnableVertexAttribArray(0);
-			gShader.getMl_mat().Transform(galaxy.getPosition(), galaxy.getRx(), galaxy.getRy(), galaxy.getRz(), Vector3f.oneVec);
-			if(galaxy.MouseHover) {
-				gShader.setColor(Vector3f.Multiply(galaxy.getColor(), 1.5f));
-			} else {
-				gShader.setColor(galaxy.getColor());
-			}
+			gShader.getMl_mat().Transform(galaxy.getPosition(), 0, 0, 0, new Vector3f(50, 50, 50));
 			gShader.loadUniforms();
-			glDrawArrays(GL_POINTS, 0, galaxies[i].getModel().getVertexCount());
-			glDisableVertexAttribArray(0);
-			glBindVertexArray(0);
+			glDrawArrays(GL_TRIANGLES, 0, 6);
 		}
+		glDisableVertexAttribArray(0);
+		glDisableVertexAttribArray(2);
+		glBindVertexArray(0);
 		gShader.stop();
 	}
 	
 	public void renderGalaxy(Camera camera, Galaxy g) {
-		glBlendFunc(GL_SRC_ALPHA, GL_ZERO);
+		glDisable(GL_BLEND);
 		glEnable(GL_CULL_FACE);
 		sShader.start();
 		
@@ -93,6 +102,7 @@ public class GalaxyRenderer {
 	}
 	
 	private void renderStarModel() {
+		glDisable(GL_BLEND);
 		glBindVertexArray(Star.getModel().getVaoID());
 		glEnableVertexAttribArray(0);
 		glEnableVertexAttribArray(1);
@@ -104,32 +114,41 @@ public class GalaxyRenderer {
 		glBindVertexArray(0);
 	}
 	
+	Vector3f electricBlue = new Vector3f(0.49019607843f, 0.97647058823f, 1);
 	public void renderBackground(Camera c, Background back) {
-		gShader.start();
-		gShader.setVw_mat(c.vw_matrix);
-		gShader.loadOnceUniforms();
-		gShader.setColor(Vector3f.oneVec);
-		gShader.getMl_mat().Transform(Vector3f.nulVec, 0, 0, 0, Vector3f.oneVec);
-		gShader.loadUniforms();
+		pointTexture.bind();
+		
+		glEnable(GL_DEPTH_TEST);
+		glDepthFunc(GL_LESS);
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE);
+		
+		pShader.start();
+		pShader.setPr_mat(pr_mat);
+		pShader.setVw_mat(c.vw_matrix);
+		pShader.loadOnceUniforms();
+		pShader.setColor(electricBlue);
+		pShader.getMl_mat().Transform(Vector3f.nulVec, 0, 0, 0, Vector3f.oneVec);
+		pShader.loadUniforms();
 		glBindVertexArray(back.getModel().getVaoID());
 		glEnableVertexAttribArray(0);
 		glDrawArrays(GL_POINTS, 0, back.getModel().getVertexCount());
 		glDisableVertexAttribArray(0);
 		glBindVertexArray(0);
-	
-		for(ShootingStar ss : back.getSsa()) {
-			if(ss != null) {
-				gShader.getMl_mat().Transform(new Vector3f(ss.getX(), ss.getY(), -1), 0, 0, 0, Vector3f.oneVec);
-				gShader.loadUniforms();
-				glBindVertexArray(ss.getModel().getVaoID());
-				glEnableVertexAttribArray(0);
-				glDrawArrays(GL_POINTS, 0, ss.getModel().getVertexCount());
-				glDisableVertexAttribArray(0);
-				glBindVertexArray(0);
-			}
-		}
+//	
+//		for(ShootingStar ss : back.getSsa()) {
+//			if(ss != null) {
+//				pShader.getMl_mat().Transform(new Vector3f(ss.getX(), ss.getY(), 0), 0, 0, 0, Vector3f.oneVec);
+//				pShader.loadUniforms();
+//				glBindVertexArray(ss.getModel().getVaoID());
+//				glEnableVertexAttribArray(0);
+//				glDrawArrays(GL_POINTS, 0, ss.getModel().getVertexCount());
+//				glDisableVertexAttribArray(0);
+//				glBindVertexArray(0);
+//			}
+//		}
 
-		gShader.stop();
+		pShader.stop();
 	}
 
 	public ProjectionMatrix getPr_mat() {

@@ -1,26 +1,29 @@
-package xyz.hes.space.galaxy;
+package xyz.hes.space;
 
 import me.soldier.graphics.Shader;
 import me.soldier.math.ModelMatrix;
 import me.soldier.math.ProjectionMatrix;
+import me.soldier.math.Vector3f;
 import me.soldier.math.ViewMatrix;
 
-public class GalaxyShader extends Shader {
+public class PointShader extends Shader {
 
-	private static final String VERTEX_FILE = "src/xyz/hes/space/galaxy/g.vert";
-	private static final String FRAGMENT_FILE = "src/xyz/hes/space/galaxy/g.frag";
+	private static final String VERTEX_FILE = "src/xyz/hes/space/point.vert";
+	private static final String FRAGMENT_FILE = "src/xyz/hes/space/point.frag";
 	private ModelMatrix ml_mat;
 	private ViewMatrix vw_mat;
 	private ProjectionMatrix pr_mat;
+	private Vector3f gColor;
 	
-	private int ml_loc, vw_loc, pr_loc;
+	private int ml_loc, vw_loc, pr_loc, color_loc;
 	
-	public GalaxyShader() {
+	public PointShader() {
 		super(VERTEX_FILE, FRAGMENT_FILE);
 		setMl_mat(new ModelMatrix());
 		this.ml_loc = this.getUniformLocation("ml_mat");
 		this.vw_loc = this.getUniformLocation("vw_mat");
 		this.pr_loc = this.getUniformLocation("pr_mat");
+		this.color_loc = this.getUniformLocation("color");
 	}
 
 	@Override
@@ -31,6 +34,7 @@ public class GalaxyShader extends Shader {
 	@Override
 	public void loadUniforms() {
 		this.setUniform(ml_loc, ml_mat);
+		this.setUniform(color_loc, getColor());
 	}
 	
 	
@@ -61,5 +65,13 @@ public class GalaxyShader extends Shader {
 
 	public void setPr_mat(ProjectionMatrix pr_mat) {
 		this.pr_mat = pr_mat;
+	}
+
+	public Vector3f getColor() {
+		return gColor;
+	}
+
+	public void setColor(Vector3f gColor) {
+		this.gColor = gColor;
 	}
 }

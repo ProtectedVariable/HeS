@@ -10,10 +10,12 @@ public class Background {
 	private ShootingStar[] ssa;
 
 	public Background(int nb, int size) {
-		vertices = new float[nb];
+		vertices = new float[nb*3];
 		setSsa(new ShootingStar[MasterRenderer.LOD.getExposant() * 3]);
-		for (int i = 0; i < vertices.length; i++) {
+		for (int i = 0; i < vertices.length; i+=3) {
 			vertices[i] = (float) ((Math.random() - 0.5) * size);
+			vertices[i+1] = (float) ((Math.random() - 0.5) * size);
+			vertices[i+2] = (float) (i);
 		}
 		this.setModel(Loader.createModelVAO(vertices));
 	}
