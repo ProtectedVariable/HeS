@@ -6,8 +6,8 @@ import me.soldier.math.Vector3f;
 
 public class FontShader extends Shader {
 
-	private static final String VERTEX_FILE = "src/fontRendering/fontVertex.txt";
-	private static final String FRAGMENT_FILE = "src/fontRendering/fontFragment.txt";
+	private static final String VERTEX_FILE = "src/libs/thinmatrix/fontRendering/fontVertex.txt";
+	private static final String FRAGMENT_FILE = "src/libs/thinmatrix/fontRendering/fontFragment.txt";
 	
 	private int colour_loc, trans_loc;
 	
