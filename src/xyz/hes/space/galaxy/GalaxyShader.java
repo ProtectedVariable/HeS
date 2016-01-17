@@ -24,11 +24,6 @@ public class GalaxyShader extends Shader {
 	}
 
 	@Override
-	protected void bindAttributes() {
-		
-	}
-
-	@Override
 	public void loadUniforms() {
 		this.setUniform(ml_loc, ml_mat);
 	}

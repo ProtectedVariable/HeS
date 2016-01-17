@@ -1,6 +1,6 @@
-package fontMeshCreator;
+package libs.thinmatrix.fontMeshCreator;
 
-import fontRendering.TextMaster;
+import libs.thinmatrix.fontRendering.TextMaster;
 import me.soldier.math.Vector2f;
 import me.soldier.math.Vector3f;
 

@@ -23,7 +23,7 @@ public class SolarSystem extends SpaceProperty {
 	
 	public void Update() {
 		rad = (float) Math.sqrt(position.x*position.x+position.z*position.z);
-		t += 1f/50f;
+		t += 1f/200f;
 		float T = (float) (2*Math.PI*Math.sqrt((rad*rad*rad)/1000));
 		position.x = (float) (rad * Math.cos((2*Math.PI*t)/T));
 		position.z = (float) (rad * Math.sin((2*Math.PI*t)/T));

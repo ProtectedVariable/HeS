@@ -1,6 +1,6 @@
 package me.soldier.menu;
 
-import fontMeshCreator.GUIText;
+import libs.thinmatrix.fontMeshCreator.GUIText;
 import me.soldier.math.Vector2f;
 import xyz.hes.core.Game;
 

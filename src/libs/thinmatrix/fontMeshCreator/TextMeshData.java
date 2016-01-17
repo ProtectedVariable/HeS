@@ -1,4 +1,4 @@
-package fontMeshCreator;
+package libs.thinmatrix.fontMeshCreator;
 
 /**
  * Stores the vertex data for all the quads on which a text will be rendered.

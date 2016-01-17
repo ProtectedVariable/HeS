@@ -47,8 +47,8 @@ public class MasterRenderer {
 	}
 
 	public void RenderUniverse(Camera camera, Universe u, Background b) {
-		this.galaxyRenderer.renderBackground(camera, b);
 		this.galaxyRenderer.renderGalaxies(camera, u.getGalaxies());
+		this.galaxyRenderer.renderBackground(camera, b);
 	}
 
 	public void RenderGalaxy(Camera camera, Galaxy g, Background b) {

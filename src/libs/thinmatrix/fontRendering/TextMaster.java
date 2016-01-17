@@ -1,13 +1,13 @@
-package fontRendering;
+package libs.thinmatrix.fontRendering;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import fontMeshCreator.FontType;
-import fontMeshCreator.GUIText;
-import fontMeshCreator.TextMeshData;
+import libs.thinmatrix.fontMeshCreator.FontType;
+import libs.thinmatrix.fontMeshCreator.GUIText;
+import libs.thinmatrix.fontMeshCreator.TextMeshData;
 import me.soldier.meshutil.Loader;
 
 public class TextMaster {

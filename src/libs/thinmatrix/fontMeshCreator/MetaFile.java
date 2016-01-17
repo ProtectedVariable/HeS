@@ -1,4 +1,4 @@
-package fontMeshCreator;
+package libs.thinmatrix.fontMeshCreator;
 
 import java.io.BufferedReader;
 import java.io.File;

@@ -25,12 +25,7 @@ public class PointShader extends Shader {
 		this.pr_loc = this.getUniformLocation("pr_mat");
 		this.color_loc = this.getUniformLocation("color");
 	}
-
-	@Override
-	protected void bindAttributes() {
-		
-	}
-
+	
 	@Override
 	public void loadUniforms() {
 		this.setUniform(ml_loc, ml_mat);

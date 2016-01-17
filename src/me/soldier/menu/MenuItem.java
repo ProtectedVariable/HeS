@@ -1,6 +1,6 @@
 package me.soldier.menu;
 
-import fontMeshCreator.GUIText;
+import libs.thinmatrix.fontMeshCreator.GUIText;
 
 public abstract class MenuItem {
 

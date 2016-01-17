@@ -10,7 +10,7 @@ import java.util.List;
 
 import me.soldier.graphics.VBOUtil;
 
-public class Loader {
+public abstract class Loader {
 
 	public static Model createModelVAO(float[] pos, float[] normals, float[] tex, int[] indices) {
 		int vaoID = createVAO();
@@ -43,7 +43,7 @@ public class Loader {
 	 * 
 	 * @param pos
 	 * @param texCoords
-	 * @return
+	 * @return id of the vao
 	 */
 	public static int createTextVAO(float[] pos, float[] texCoords) {
 		int vaoID = createVAO();

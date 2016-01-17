@@ -1,4 +1,4 @@
-package fontRendering;
+package libs.thinmatrix.fontRendering;
 
 import me.soldier.graphics.Shader;
 import me.soldier.math.Vector2f;

@@ -1,4 +1,4 @@
-package fontMeshCreator;
+package libs.thinmatrix.fontMeshCreator;
 
 /**
  * Simple data structure class holding information about a certain glyph in the

@@ -15,7 +15,6 @@ import me.soldier.math.Vector4f;
 
 /**
  * @author Osoldier
- * @Project OSEngine
  * @since 7 oct. 2014
  */
 public abstract class Shader {
@@ -23,10 +22,21 @@ public abstract class Shader {
 
 	private int programID, vertexShaderID, fragmentShaderID, geometryShaderID;
 	
+	/**
+	 * Creates a shader program with a vertex and a fragment stage
+	 * @param vertexFile Path to vertex shader
+	 * @param fragmentFile Path to Fragment shader
+	 */
 	public Shader(String vertexFile, String fragmentFile) {
 		this(vertexFile, fragmentFile, null);
 	}
 	
+	/**
+	 * Creates a shader program with a vertex, a geometry and a fragment stage
+	 * @param vertexFile Path to vertex shader
+	 * @param fragmentFile Path to fragment shader
+	 * @param geometryFile Path to geometry shader
+	 */
 	public Shader(String vertexFile, String fragmentFile, String geometryFile) {
 		vertexShaderID = loadShader(vertexFile, GL_VERTEX_SHADER);
 		fragmentShaderID = loadShader(fragmentFile, GL_FRAGMENT_SHADER);
@@ -36,15 +46,10 @@ public abstract class Shader {
 		glAttachShader(programID, vertexShaderID);
 		glAttachShader(programID, fragmentShaderID);
 		if(geometryFile != null) glAttachShader(programID, geometryShaderID);
-		bindAttributes();
 		glLinkProgram(programID);
 		glValidateProgram(programID);
 	}
 	
-	
-	protected void bindAttributes() {
-		
-	}
 	public abstract void loadUniforms();
 	
 	protected void bindAttribute(int attr, String varName) {

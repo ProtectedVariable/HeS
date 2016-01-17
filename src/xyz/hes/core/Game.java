@@ -6,8 +6,8 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import fontMeshCreator.FontType;
-import fontRendering.TextMaster;
+import libs.thinmatrix.fontMeshCreator.FontType;
+import libs.thinmatrix.fontRendering.TextMaster;
 import me.soldier.graphics.Texture;
 import me.soldier.util.FileReader;
 import me.soldier.util.MousePicker;
@@ -27,6 +27,7 @@ public class Game {
 	private MasterRenderer renderer;
 	private Object observed;
 	private Camera pov;
+	//TODO load from option file
 	public static String LANG_PATH = "src/res/lang/en/";
 	private List<Player> enemies;
 	private MousePicker mousePicker;
@@ -50,7 +51,7 @@ public class Game {
 
 		this.enemies = new ArrayList<Player>();
 		
-		this.universeBack = new Background(200, 500);
+		this.universeBack = new Background(200, 1000);
 		this.galaxyBack = new Background(100, 100);
 
 		List<String> f = FileReader.readFile(LANG_PATH + "E_N1.txt");
