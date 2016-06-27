@@ -5,8 +5,8 @@ import me.it.lib.math.*;
 
 public class PlanetShader extends Shader{
 
-	private final static String VERT_FILE = "src/xyz/hes/space/solarsystems/ss.vert";
-	private final static String FRAG_FILE = "src/xyz/hes/space/solarsystems/ss.frag";
+	private final static String VERT_FILE = "src/me/it/hes/space/solarsystems/ss.vert";
+	private final static String FRAG_FILE = "src/me/it/hes/space/solarsystems/ss.frag";
 	
 	private int mlMatLoc, vwMatLoc, prMatLoc;
 	private ModelMatrix mlMat;

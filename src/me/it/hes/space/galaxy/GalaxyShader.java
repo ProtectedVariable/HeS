@@ -5,8 +5,8 @@ import me.it.lib.math.*;
 
 public class GalaxyShader extends Shader {
 
-	private static final String VERTEX_FILE = "src/xyz/hes/space/galaxy/g.vert";
-	private static final String FRAGMENT_FILE = "src/xyz/hes/space/galaxy/g.frag";
+	private static final String VERTEX_FILE = "src/me/it/hes/space/galaxy/g.vert";
+	private static final String FRAGMENT_FILE = "src/me/it/hes/space/galaxy/g.frag";
 	private ModelMatrix ml_mat;
 	private ViewMatrix vw_mat;
 	private ProjectionMatrix pr_mat;

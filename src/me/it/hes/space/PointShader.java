@@ -5,8 +5,8 @@ import me.it.lib.math.*;
 
 public class PointShader extends Shader {
 
-	private static final String VERTEX_FILE = "src/xyz/hes/space/point.vert";
-	private static final String FRAGMENT_FILE = "src/xyz/hes/space/point.frag";
+	private static final String VERTEX_FILE = "src/me/it/hes/space/point.vert";
+	private static final String FRAGMENT_FILE = "src/me/it/hes/space/point.frag";
 	private ModelMatrix ml_mat;
 	private ViewMatrix vw_mat;
 	private ProjectionMatrix pr_mat;

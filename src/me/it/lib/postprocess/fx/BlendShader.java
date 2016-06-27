@@ -4,8 +4,8 @@ import me.it.lib.graphics.*;
 
 public class BlendShader extends Shader{
 
-	private final static String VERT_FILE = "src/me/soldier/postprocess/fx/scrquad.vert";
-	private final static String FRAG_FILE = "src/me/soldier/postprocess/fx/blend.frag";
+	private final static String VERT_FILE = "src/me/it/lib/postprocess/fx/scrquad.vert";
+	private final static String FRAG_FILE = "src/me/it/lib/postprocess/fx/blend.frag";
 
 	
 	public BlendShader() {
