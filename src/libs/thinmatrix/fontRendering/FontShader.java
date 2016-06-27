@@ -1,8 +1,7 @@
 package libs.thinmatrix.fontRendering;
 
-import me.soldier.graphics.Shader;
-import me.soldier.math.Vector2f;
-import me.soldier.math.Vector3f;
+import me.it.lib.graphics.*;
+import me.it.lib.math.*;
 
 public class FontShader extends Shader {
 

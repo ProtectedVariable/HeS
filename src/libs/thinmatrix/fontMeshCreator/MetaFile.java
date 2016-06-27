@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-import xyz.hes.core.Main;
+import me.it.hes.core.*;
 
 /**
  * Provides functionality for getting the values from a font file.

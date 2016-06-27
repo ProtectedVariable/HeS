@@ -8,7 +8,7 @@ import java.util.Map;
 import libs.thinmatrix.fontMeshCreator.FontType;
 import libs.thinmatrix.fontMeshCreator.GUIText;
 import libs.thinmatrix.fontMeshCreator.TextMeshData;
-import me.soldier.meshutil.Loader;
+import me.it.lib.meshutil.*;
 
 public class TextMaster {
 
