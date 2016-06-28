@@ -23,6 +23,7 @@ public class SolarSystemShader extends Shader {
 		this.prMatLoc = this.getUniformLocation("pr_mat");
 		this.lightLoc = this.getUniformLocation("lightPos");
 		this.srcLoc = this.getUniformLocation("source");
+		this.lightPosition = new Vector3f();
 	}
 	
 	public void loadOnceUniforms() {

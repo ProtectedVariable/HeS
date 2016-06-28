@@ -16,15 +16,17 @@ public class GUIText {
 
 	private int textMeshVao;
 	private int vertexCount;
-	private Vector3f colour = new Vector3f(0f, 0f, 0f);
+	private Vector3f colour = new Vector3f(1f, 0f, 1f);
 
-	private Vector2f position;
+	private Vector3f position;
 	private float lineMaxSize;
 	private int numberOfLines;
 
 	private FontType font;
 
 	private boolean centerText = false;
+	private boolean rendering = true;
+	private boolean ThreeD = false;
 
 	/**
 	 * Creates a new text, loads the text's quads into a VAO, <del>and adds the text
@@ -51,7 +53,7 @@ public class GUIText {
 	 * @param centered
 	 *            - whether the text should be centered or not.
 	 */
-	public GUIText(String text, float fontSize, FontType font, Vector2f position, float maxLineLength,
+	public GUIText(String text, float fontSize, FontType font, Vector3f position, float maxLineLength,
 			boolean centered) {
 		this.textString = text;
 		this.fontSize = fontSize;
@@ -59,7 +61,7 @@ public class GUIText {
 		this.position = position;
 		this.lineMaxSize = maxLineLength;
 		this.centerText = centered;
-		//TextMaster.loadText(this);
+		TextMaster.loadText(this);
 	}
 
 	/**
@@ -113,11 +115,11 @@ public class GUIText {
 	 *         (0, 0) is the top left corner of the screen, (1, 1) is the bottom
 	 *         right.
 	 */
-	public Vector2f getPosition() {
+	public Vector3f getPosition() {
 		return position;
 	}
 	
-	public void setPosition(Vector2f v2) {
+	public void setPosition(Vector3f v2) {
 		this.position = v2;
 	}
 
@@ -186,6 +188,22 @@ public class GUIText {
 	 */
 	protected String getTextString() {
 		return textString;
+	}
+
+	public boolean isRendering() {
+	    return rendering;
+	}
+
+	public void setRendering(boolean rendering) {
+	    this.rendering = rendering;
+	}
+
+	public boolean is3D() {
+	    return ThreeD;
+	}
+
+	public void set3D(boolean threeD) {
+	    ThreeD = threeD;
 	}
 
 }

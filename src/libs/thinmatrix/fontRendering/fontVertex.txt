@@ -4,9 +4,16 @@ layout (location = 0) in vec2 position;
 layout (location = 1) in vec2 textureCoords;
 out vec2 pass_textureCoords;
 
-uniform vec2 translation;
+uniform vec3 translation;
+uniform mat4 view;
+uniform mat4 projection;
+uniform bool threeD;
 
 void main(void){
-	gl_Position = vec4(position + translation * vec2(2.0, -2.0), 0,1);
+	if(threeD) {
+		gl_Position = vec4(position + translation.xy, translation.z, 1.0) * view * projection;
+	} else {
+		gl_Position = vec4((position + translation.xy * vec2(2.0, -2.0)), 0, 1);
+	}
 	pass_textureCoords = textureCoords;
 }

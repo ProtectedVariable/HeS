@@ -22,7 +22,7 @@ public class Planet extends SpaceProperty {
 	private float size;
 	
 	public Planet(Vector3f pos, Vector3f rotation, float size) {
-		this.setPosition(position);
+		this.setPosition(pos);
 		this.setRx(rotation.x);
 		this.setRy(rotation.y);
 		this.setRz(rotation.z);

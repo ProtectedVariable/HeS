@@ -1,5 +1,6 @@
 package me.it.hes.space;
 
+import libs.thinmatrix.fontRendering.TextMaster;
 import me.it.hes.core.*;
 import me.it.hes.core.menus.*;
 import me.it.hes.space.galaxy.*;
@@ -39,6 +40,8 @@ public class MasterRenderer {
 		this.planetRenderer = new PlanetRender(this.perspective);
 		this.menuRenderer = new MenuRenderer();
 
+		TextMaster.init(this.perspective);
+		
 		this.bloomFX = new BloomFX();
 	}
 

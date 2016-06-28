@@ -4,30 +4,30 @@ import java.nio.ByteBuffer;
 
 public class TextureData {
 
-	private int width, height;
-	private ByteBuffer buffer;
-	
-	public TextureData(ByteBuffer buffer,int width, int height) {
-		this.width = width;
-		this.height = height;
-		this.buffer = buffer;
-	}
+    private int width, height;
+    private ByteBuffer buffer;
 
-	public TextureData(int width, int height) {
-		this.width = width;
-		this.height = height;
-	}
+    public TextureData(ByteBuffer buffer, int width, int height) {
+	this.width = width;
+	this.height = height;
+	this.buffer = buffer;
+    }
 
-	public int getWidth() {
-		return width;
-	}
+    public TextureData(int width, int height) {
+	this.width = width;
+	this.height = height;
+    }
 
-	public int getHeight() {
-		return height;
-	}
+    public int getWidth() {
+	return width;
+    }
 
-	public ByteBuffer getBuffer() {
-		return buffer;
-	}
+    public int getHeight() {
+	return height;
+    }
+
+    public ByteBuffer getBuffer() {
+	return buffer;
+    }
 
 }

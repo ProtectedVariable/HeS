@@ -1,5 +1,6 @@
 package me.it.hes.space;
 
+import libs.thinmatrix.fontMeshCreator.GUIText;
 import me.it.hes.players.*;
 
 public class SpaceProperty {
@@ -9,6 +10,8 @@ public class SpaceProperty {
 	private Player owner;
 	
 	private long population;
+	
+	private GUIText displayText;
 
 	public String getName() {
 		return name;
@@ -32,5 +35,13 @@ public class SpaceProperty {
 
 	public void setPopulation(long population) {
 		this.population = population;
+	}
+
+	public GUIText getDisplayText() {
+	    return displayText;
+	}
+
+	public void setDisplayText(GUIText displayText) {
+	    this.displayText = displayText;
 	}
 }
