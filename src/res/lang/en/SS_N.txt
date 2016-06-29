@@ -1,2 +1,4 @@
 Solaris
+Canis Majoris
+VY 4T
 //put official nasa star names

@@ -21,9 +21,9 @@ public class MousePicker {
     }
 
     public void Update(float x, float y) {
-	currentRay = calculateMouseRay();
 	this.mouseX = x;
 	this.mouseY = y;
+	currentRay = calculateMouseRay();
     }
 
     private Vector3f calculateMouseRay() {
@@ -53,7 +53,7 @@ public class MousePicker {
     }
 
     private Vector2f getNormalizedDeviceCoords(float x, float y) {
-	return new Vector2f((2f * x) / Main.width - 1f, -((2f * y) / Main.height - 1f));
+	return new Vector2f((2f * x) / Main.width - 1f, 1f-((2f * y) / Main.height));
     }
 
     /**

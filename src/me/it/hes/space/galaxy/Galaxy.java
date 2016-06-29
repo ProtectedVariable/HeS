@@ -23,7 +23,7 @@ public class Galaxy extends SpaceProperty {
 	float[] texCoords = { 0, 0, 1, 0, 1, 1, 1, 1, 0, 1, 0, 0 };
 	float[] coords = { -0.5f, -0.5f, 0.5f, -0.5f, 0.5f, 0.5f, 0.5f, 0.5f, -0.5f, 0.5f, -0.5f, -0.5f };
 	vao = Loader.createGUIVAO(coords, texCoords);
-	names = FileReader.readFile(Game.LANG_PATH+"P_N.txt");
+	names = FileReader.readFile(Game.LANG_PATH+"SS_N.txt");
     }
 
     private float rx, ry, rz;

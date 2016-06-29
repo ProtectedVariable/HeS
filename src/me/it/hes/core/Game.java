@@ -17,6 +17,7 @@ import me.it.hes.space.planets.*;
 import me.it.hes.space.solarsystems.*;
 import me.it.hes.space.universe.*;
 import me.it.lib.graphics.*;
+import me.it.lib.math.Vector3f;
 import me.it.lib.util.*;
 
 public class Game {
@@ -81,7 +82,7 @@ public class Game {
 	    throw new IllegalStateException("Observed object isn't a renderable object");
 	}
 	TextMaster.render(pov.vw_matrix);
-	// renderer.renderMenu(mainMenu);
+	//renderer.renderMenu(mainMenu);
     }
 
     public void Update() {
@@ -92,13 +93,28 @@ public class Game {
 	} else if (observed instanceof Galaxy) {
 	    UpdateGalaxy();
 	}
+	
+
+	if (Input.isKeyDown(GLFW_KEY_LEFT)) {
+	    pov.position.x -= 1.2f;
+	}
+	if (Input.isKeyDown(GLFW_KEY_RIGHT)) {
+	    pov.position.x += 1.2f;
+	}
+	if (Input.isKeyDown(GLFW_KEY_UP)) {
+	    pov.position.y += 1.2f;
+	}
+	if (Input.isKeyDown(GLFW_KEY_DOWN)) {
+	    pov.position.y -= 1.2f;
+	}
     }
 
     private void UpdateGalaxy() {
 	galaxyBack.Update();
 	for (SolarSystem ss : ((Galaxy) observed).getSystems()) {
 	    ss.Update();
-	    if (mousePicker.collideWithObj(ss.getPosition(), pov.position, 5)) {
+	    if (mousePicker.collideWithObj(ss.getPosition(), pov.position, 1)) {
+		ss.getDisplayText().setPosition(new Vector3f(ss.getPosition().x+2, ss.getPosition().y+2, ss.getPosition().z));
 		ss.getDisplayText().setRendering(true);
 		if (MouseHandler.isButtonDown(0)) {
 		    observed = ss;
@@ -130,19 +146,6 @@ public class Game {
 		universe.getGalaxies()[i].MouseHover = false;
 		universe.getGalaxies()[i].getDisplayText().setRendering(false);
 	    }
-	}
-
-	if (Input.isKeyDown(GLFW_KEY_LEFT)) {
-	    pov.position.x -= 1.2f;
-	}
-	if (Input.isKeyDown(GLFW_KEY_RIGHT)) {
-	    pov.position.x += 1.2f;
-	}
-	if (Input.isKeyDown(GLFW_KEY_UP)) {
-	    pov.position.y += 1.2f;
-	}
-	if (Input.isKeyDown(GLFW_KEY_DOWN)) {
-	    pov.position.y -= 1.2f;
 	}
     }
 

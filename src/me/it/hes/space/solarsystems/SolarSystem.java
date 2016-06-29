@@ -23,7 +23,7 @@ public class SolarSystem extends SpaceProperty {
 	for (int i = 0; i < planets.length; i++) {
 	    planets[i] = new Planet(new Vector3f((float) Math.random(), 0, (float) Math.random()), new Vector3f(1, 1, 1), (float) (Math.random() * 3));
 	}
-	this.setDisplayText(new GUIText(name, 200, Game.font, new Vector3f(position.x+0.4f*GalaxyRenderer.SCALE, position.y+0.4f*GalaxyRenderer.SCALE, position.z), 1000, false));
+	this.setDisplayText(new GUIText(name, 30, Game.font, new Vector3f(position.x+0.4f*GalaxyRenderer.SCALE, position.y+0.4f*GalaxyRenderer.SCALE, position.z), 1000, false));
 	this.getDisplayText().setColour(1, 1, 1);
 	this.getDisplayText().setRendering(false);
 	this.getDisplayText().set3D(true);

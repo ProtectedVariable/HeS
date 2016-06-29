@@ -72,7 +72,7 @@ public class GalaxyRenderer {
 	sShader.start();
 
 	camera.position.x = 0;
-	camera.position.y = 0;
+	camera.position.y = 20;
 	camera.position.z = 90;
 	camera.pitch = -20;
 	camera.lookThrough();
